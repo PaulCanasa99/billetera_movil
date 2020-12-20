@@ -1,0 +1,12 @@
+{
+  "name": "billetera_movil",
+  "displayName": "billetera_movil",
+  "expo": {
+    "name": "billetera_movil",
+    "slug": "billetera_movil",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
