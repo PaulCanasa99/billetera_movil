@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "152979494813",
+    "project_id": "inductive-gift-291119",
+    "storage_bucket": "inductive-gift-291119.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152979494813:android:c3169e765a9b1c52808174",
+        "android_client_info": {
+          "package_name": "com.billeteramovil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152979494813-24rot5ct63vt217nracd6u1i0k99la80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.billeteramovil",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "152979494813-a5nmtt7ct4eus4o1qnnm32r63ehptt10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFH73DMh1FpGQZAc4xLAThL8ocKE_LGXM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152979494813-a5nmtt7ct4eus4o1qnnm32r63ehptt10.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "152979494813-dhu00qajpntnra6c5fs6s2upd1qrkkap.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reactnativefirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
