@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextInput } from 'react-native';
+import { Button, TextInput, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 const PhoneSignIn = () => {
@@ -17,6 +17,7 @@ const PhoneSignIn = () => {
   async function confirmCode() {
     try {
       await confirm.confirm(code);
+      console.log('codigo correcto');
     } catch (error) {
       console.log('Invalid code.');
     }
@@ -24,10 +25,12 @@ const PhoneSignIn = () => {
 
   if (!confirm) {
     return (
-      <Button
-        title="Phone Numbers Sign In"
-        onPress={() => signInWithPhoneNumber('+1 650-555-3434')}
-      />
+      <View>
+        <Button
+          title="Phone Numbers Sign In"
+          onPress={() => signInWithPhoneNumber('+51 958 955 977')}
+        />
+      </View>
     );
   }
 
