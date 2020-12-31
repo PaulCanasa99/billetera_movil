@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Title, useTheme, Text } from 'react-native-paper';
 
-const Home = ({ navigation }) => {
+const EnviarDinero = ({ navigation }) => {
   const { colors } = useTheme();
 
   return (
@@ -21,7 +21,7 @@ const Home = ({ navigation }) => {
         style={style.button}
         uppercase={false}
         mode="contained"
-        onPress={() => navigation.navigate('EnviarDinero')}
+        onPress={() => navigation.navigate('Events')}
         color={colors.accent}
       >
         Depositar
@@ -52,10 +52,11 @@ const style = StyleSheet.create({
   },
   button: {
     top: '15%',
+    height: 60,
     width: '60%',
     marginTop: 50,
     justifyContent: 'center',
   },
 });
 
-export default Home;
+export default EnviarDinero;

@@ -6,23 +6,27 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {
+  configureFonts,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import merge from 'deepmerge';
+import fontConfig from './src/utils/fontConfig';
+
 const theme = {
   ...PaperDefaultTheme,
   roundness: 50,
+  fonts: configureFonts(fontConfig),
   colors: {
     ...PaperDefaultTheme.colors,
     primary: '#00ADB5',
     accent: '#EEEEEE',
     background: '#A6E3E9',
-    text: '#FFFFFF',
+    text: '#222831',
+    surface: '#222831',
   },
 };
 
@@ -30,10 +34,10 @@ const MyTheme = {
   ...NavigationDefaultTheme,
   colors: {
     ...NavigationDefaultTheme.colors,
-    text: '#FFFFFF',
     primary: '#00ADB5',
     background: '#A6E3E9',
-    text: '#FFFFFF',
+    text: '#222831',
+    card: '#222831',
   },
 };
 const CombinedDefaultTheme = merge(theme, MyTheme);
@@ -44,6 +48,7 @@ import Home from './src/screens/Home';
 import Events from './src/screens/Events';
 import Groups from './src/screens/Groups';
 import Activity from './src/screens/Activity';
+import InicioNavigator from './src/screens/Inicio/InicioNavigator';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -58,7 +63,7 @@ const App = () => {
         >
           <Tab.Screen
             name="Home"
-            component={Home}
+            component={InicioNavigator}
             options={{
               tabBarLabel: 'Inicio',
               tabBarIcon: ({ color }) => (
@@ -70,7 +75,6 @@ const App = () => {
               ),
             }}
           />
-          {/* <Tab.Screen name="phone" component={PhoneSignIn} /> */}
           <Tab.Screen
             name="Events"
             component={Events}
