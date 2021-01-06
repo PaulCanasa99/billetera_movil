@@ -1,32 +1,88 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Button, Title, useTheme, Text } from 'react-native-paper';
+import React, { useContext, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { Button, Title, useTheme, Text, Divider } from 'react-native-paper';
+import { Context } from '../../context/Context';
+import { Searchbar } from 'react-native-paper';
+import { List } from 'react-native-paper';
 
 const EnviarDinero = ({ navigation }) => {
-  const { colors } = useTheme();
-
+  const [searchQuery, setSearchQuery] = useState('');
+  const onChangeSearch = (query) => setSearchQuery(query);
+  const { setTitle, setDestination } = useContext(Context);
+  // useLayoutEffect(() => {
+  //   setTitle('Enviar Dinero');
+  // });
+  const handlePress = (id) => {
+    setDestination(id);
+    navigation.navigate('RealizarEnvio', { name: 'Realizar envío' });
+  };
   return (
-    <View style={style.container}>
-      <Text style={style.greeting}>Hola Paul, tu saldo es:</Text>
-      <Text style={style.saldo}>S/. 37.50</Text>
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={() => console.log('Pressed')}
-      >
-        Enviar dinero
-      </Button>
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={() => navigation.navigate('Events')}
-        color={colors.accent}
-      >
-        Depositar
-      </Button>
-    </View>
+    <>
+      <Searchbar
+        style={style.searchBar}
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
+      <Divider style={style.divider} />
+      <ScrollView>
+        <List.Item
+          onPress={handlePress}
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+        <List.Item
+          style={style.listItem}
+          title="First Item"
+          description="90292929"
+          left={() => <List.Icon icon="folder" />}
+        />
+      </ScrollView>
+    </>
   );
 };
 
@@ -36,26 +92,19 @@ const style = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  greeting: {
-    fontSize: 36,
-    position: 'absolute',
-    top: '12%',
-    width: '70%',
-    textAlign: 'center',
+  searchBar: {
+    backgroundColor: 'white',
+    width: '95%',
+    alignSelf: 'center',
+    marginTop: '3%',
+    position: 'relative',
   },
-  saldo: {
-    fontSize: 48,
-    position: 'absolute',
-    top: '35%',
-    width: '70%',
-    textAlign: 'center',
+  divider: {
+    marginTop: '3%',
+    height: '0.2%',
   },
-  button: {
-    top: '15%',
-    height: 60,
-    width: '60%',
-    marginTop: 50,
-    justifyContent: 'center',
+  listItem: {
+    marginLeft: '2%',
   },
 });
 

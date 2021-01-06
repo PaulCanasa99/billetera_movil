@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
@@ -15,6 +15,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import merge from 'deepmerge';
 import fontConfig from './src/utils/fontConfig';
+import { Context } from './src/context/Context';
 
 const theme = {
   ...PaperDefaultTheme,
@@ -44,7 +45,6 @@ const CombinedDefaultTheme = merge(theme, MyTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 import PhoneSignIn from './src/screens/PhoneSignIn';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/screens/Home';
 import Events from './src/screens/Events';
 import Groups from './src/screens/Groups';
 import Activity from './src/screens/Activity';
@@ -53,83 +53,87 @@ import InicioNavigator from './src/screens/Inicio/InicioNavigator';
 const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
+  const [title, setTitle] = useState('');
+  const [destination, setDestination] = useState('');
   return (
-    <PaperProvider theme={CombinedDefaultTheme}>
-      <NavigationContainer theme={CombinedDefaultTheme}>
-        <Tab.Navigator
-          shifting={false}
-          activeColor="#222831"
-          inactiveColor="#EEEEEE"
-        >
-          <Tab.Screen
-            name="Home"
-            component={InicioNavigator}
-            options={{
-              tabBarLabel: 'Inicio',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="account-cash"
-                  color={color}
-                  size={22}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Events"
-            component={Events}
-            options={{
-              tabBarLabel: 'Eventos',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="calendar-today"
-                  color={color}
-                  size={22}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Groups"
-            component={Groups}
-            options={{
-              tabBarLabel: 'Grupos',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="account-group"
-                  color={color}
-                  size={22}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Activity"
-            component={Activity}
-            options={{
-              tabBarLabel: 'Actividad',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="compare-horizontal"
-                  color={color}
-                  size={22}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="More"
-            component={PhoneSignIn}
-            options={{
-              tabBarLabel: 'Más',
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="more" color={color} size={22} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <Context.Provider value={{ title, setTitle, destination, setDestination }}>
+      <PaperProvider theme={CombinedDefaultTheme}>
+        <NavigationContainer theme={CombinedDefaultTheme}>
+          <Tab.Navigator
+            shifting={false}
+            activeColor="#222831"
+            inactiveColor="#EEEEEE"
+          >
+            <Tab.Screen
+              name="Home"
+              component={InicioNavigator}
+              options={{
+                tabBarLabel: 'Inicio',
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="account-cash"
+                    color={color}
+                    size={22}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Events"
+              component={Events}
+              options={{
+                tabBarLabel: 'Eventos',
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="calendar-today"
+                    color={color}
+                    size={22}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Groups"
+              component={Groups}
+              options={{
+                tabBarLabel: 'Grupos',
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="account-group"
+                    color={color}
+                    size={22}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Activity"
+              component={Activity}
+              options={{
+                tabBarLabel: 'Actividad',
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="compare-horizontal"
+                    color={color}
+                    size={22}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="More"
+              component={PhoneSignIn}
+              options={{
+                tabBarLabel: 'Más',
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="more" color={color} size={22} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </Context.Provider>
   );
 };
 export default App;

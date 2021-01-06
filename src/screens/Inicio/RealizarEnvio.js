@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, Title, useTheme, Text } from 'react-native-paper';
+import { Context } from '../../context/Context';
 
-const Home = ({ navigation }) => {
+const RealizarEnvio = ({ navigation }) => {
   const { colors } = useTheme();
-
   return (
     <View style={style.container}>
       <Text style={style.greeting}>Hola Paul, tu saldo es:</Text>
@@ -58,4 +58,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Home;
+export default RealizarEnvio;

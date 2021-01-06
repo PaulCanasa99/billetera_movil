@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../Home';
+import Home from './Home';
 import EnviarDinero from './EnviarDinero';
 import CustomNavigationBar from '../../components/CustomNavigationBar';
+import RealizarEnvio from './RealizarEnvio';
 
-const InicioNavigator = ({ navigation }) => {
+const InicioNavigator = () => {
   const Stack = createStackNavigator();
 
   return (
@@ -17,6 +18,7 @@ const InicioNavigator = ({ navigation }) => {
         component={Home}
       />
       <Stack.Screen name="EnviarDinero" component={EnviarDinero} />
+      <Stack.Screen name="RealizarEnvio" component={RealizarEnvio} />
     </Stack.Navigator>
   );
 };
