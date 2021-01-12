@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button, useTheme, Text } from 'react-native-paper';
-import { color } from 'react-native-reanimated';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 let backgroundColor;
 const RealizarEnvio = ({ navigation }) => {
@@ -55,7 +54,9 @@ const RealizarEnvio = ({ navigation }) => {
         style={style.button}
         uppercase={false}
         mode="contained"
-        onPress={() => console.log('Pressed')}
+        onPress={() =>
+          navigation.navigate('EnvioExitoso', { name: 'Envío exitoso' })
+        }
       >
         Enviar
       </Button>

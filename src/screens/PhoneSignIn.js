@@ -28,7 +28,7 @@ const PhoneSignIn = () => {
       <View>
         <Button
           title="Phone Numbers Sign In"
-          onPress={() => signInWithPhoneNumber('+51 958 955 977')}
+          onPress={() => signInWithPhoneNumber('+51 965 361 468')}
         />
       </View>
     );

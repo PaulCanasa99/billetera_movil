@@ -49,7 +49,7 @@ import Events from './src/screens/Events';
 import Groups from './src/screens/Groups';
 import Activity from './src/screens/Activity';
 import InicioNavigator from './src/screens/Inicio/InicioNavigator';
-
+import RegistroNavigator from './src/screens/Registro/RegistroNavigator';
 const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
@@ -59,7 +59,9 @@ const App = () => {
     <Context.Provider value={{ title, setTitle, destination, setDestination }}>
       <PaperProvider theme={CombinedDefaultTheme}>
         <NavigationContainer theme={CombinedDefaultTheme}>
-          <Tab.Navigator
+          <RegistroNavigator />
+
+          {/* <Tab.Navigator
             shifting={false}
             activeColor="#222831"
             inactiveColor="#EEEEEE"
@@ -130,7 +132,7 @@ const App = () => {
                 ),
               }}
             />
-          </Tab.Navigator>
+          </Tab.Navigator> */}
         </NavigationContainer>
       </PaperProvider>
     </Context.Provider>
