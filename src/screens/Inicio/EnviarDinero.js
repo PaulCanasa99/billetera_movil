@@ -1,20 +1,47 @@
-import React, { useContext, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Button, Title, useTheme, Text, Divider } from 'react-native-paper';
-import { Context } from '../../context/Context';
-import { Searchbar } from 'react-native-paper';
-import { List } from 'react-native-paper';
+import React, { useState, useEffect } from 'react';
+import {
+  PermissionsAndroid,
+  Platform,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
+import { Searchbar, Divider, List } from 'react-native-paper';
+import Contacts from 'react-native-contacts';
 
 const EnviarDinero = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [contacts, setContacts] = useState(null);
   const onChangeSearch = (query) => setSearchQuery(query);
-  const { setTitle, setDestination } = useContext(Context);
-  // useLayoutEffect(() => {
-  //   setTitle('Enviar Dinero');
-  // });
-  const handlePress = (id) => {
-    setDestination(id);
-    navigation.navigate('RealizarEnvio', { name: 'Realizar envío' });
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+      Contacts.getAll((err, data) => {
+        if (err) {
+          throw err;
+        }
+        setContacts(data);
+      });
+    } else if (Platform.OS === 'android') {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
+        title: 'Contactos',
+        message: 'La app quisiera acceder a tus contactos',
+        buttonPositive: 'Please accept bare mortal',
+      }).then(() => {
+        Contacts.getAll((err, data) => {
+          if (err === 'denied') {
+            console.log('efe');
+            throw err;
+          } else {
+            setContacts(data);
+          }
+        });
+      });
+    }
+  }, []);
+  const handlePress = (phoneNumber) => {
+    navigation.navigate('RealizarEnvio', {
+      name: 'Realizar envío',
+      phoneNumber: phoneNumber,
+    });
   };
   return (
     <>
@@ -26,61 +53,19 @@ const EnviarDinero = ({ navigation }) => {
       />
       <Divider style={style.divider} />
       <ScrollView>
-        <List.Item
-          onPress={handlePress}
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
-        <List.Item
-          style={style.listItem}
-          title="First Item"
-          description="90292929"
-          left={() => <List.Icon icon="folder" />}
-        />
+        {contacts &&
+          contacts.map((contact) => {
+            return (
+              <List.Item
+                key={contact.phoneNumbers[0].number}
+                onPress={() => handlePress(contact.phoneNumbers[0].number)}
+                style={style.listItem}
+                title={`${contact.givenName} ${contact.familyName}`}
+                description={contact.phoneNumbers[0].number}
+                left={() => <List.Icon icon="account" />}
+              />
+            );
+          })}
       </ScrollView>
     </>
   );
@@ -96,12 +81,10 @@ const style = StyleSheet.create({
     backgroundColor: 'white',
     width: '95%',
     alignSelf: 'center',
-    marginTop: '3%',
-    position: 'relative',
+    marginVertical: 10,
   },
   divider: {
-    marginTop: '3%',
-    height: '0.2%',
+    height: 1,
   },
   listItem: {
     marginLeft: '2%',

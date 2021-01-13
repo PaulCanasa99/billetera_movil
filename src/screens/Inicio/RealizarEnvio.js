@@ -1,67 +1,115 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Button, useTheme, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Context } from '../../context/Context';
+import firestore from '@react-native-firebase/firestore';
 let backgroundColor;
-const RealizarEnvio = ({ navigation }) => {
+const RealizarEnvio = ({ navigation, route }) => {
+  const { phoneNumber } = route.params;
   const { colors } = useTheme();
   backgroundColor = colors.background;
-  const [monto, setMonto] = React.useState('');
-  const [mensaje, setMensaje] = React.useState('');
-
-  return (
-    <View style={style.container}>
-      <Text style={style.text}>Enviando dinero a:</Text>
-      <MaterialCommunityIcons name="account-circle" size={100} color="black" />
-
-      <Text style={style.destino}>Juan Perez Delgado</Text>
-      <View style={style.montoContainer}>
+  const [monto, setMonto] = useState('');
+  const [mensaje, setMensaje] = useState();
+  const { usuario } = useContext(Context);
+  const [destino, setDestino] = useState();
+  const increment = firestore.FieldValue.increment(parseFloat(monto));
+  const decrement = firestore.FieldValue.increment(parseFloat(monto) * -1);
+  useEffect(() => {
+    if (phoneNumber)
+      firestore()
+        .collection('Usuarios')
+        .where('celular', '==', phoneNumber.replace(/\s/g, ''))
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((documentSnapshot) => {
+            setDestino({
+              ...documentSnapshot.data(),
+              userId: documentSnapshot.id,
+            });
+          });
+        });
+  }, []);
+  const enviar = () => {
+    firestore()
+      .collection('Usuarios')
+      .doc(usuario.userId)
+      .update({ saldo: decrement })
+      .then(() => {
+        console.log('user updated');
+      });
+    firestore()
+      .collection('Usuarios')
+      .doc(destino.userId)
+      .update({ saldo: increment })
+      .then(() => {
+        console.log('destino updated');
+      });
+    navigation.navigate('EnvioExitoso', {
+      name: 'Envío exitoso',
+      monto: monto,
+    });
+  };
+  if (destino)
+    return (
+      <View style={style.container}>
+        <Text style={style.text}>Enviando dinero a:</Text>
         <MaterialCommunityIcons
-          name="bitcoin"
-          size={30}
-          color={colors.primary}
-        />
-        <TextInput
-          style={style.monto}
-          value={monto}
-          onChangeText={(monto) => setMonto(monto)}
-          placeholder="0.00"
-          keyboardType="numeric"
-        />
-      </View>
-
-      <View style={style.mensajeContainer}>
-        <MaterialCommunityIcons
-          name="email"
-          size={30}
+          name="account-circle"
+          size={100}
           color="black"
-          color={colors.primary}
         />
 
-        <TextInput
-          underlineColor={colors.background}
-          selectionColor={colors.background}
-          theme={{ roundness: 0 }}
-          style={style.mensaje}
-          value={mensaje}
-          onChangeText={(mensaje) => setMensaje(mensaje)}
-          placeholder="Escriba un mensaje"
-        />
+        <Text
+          style={style.destino}
+        >{`${destino.nombres} ${destino.apellidos}`}</Text>
+        <View style={style.montoContainer}>
+          <MaterialCommunityIcons
+            name="bitcoin"
+            size={30}
+            color={colors.primary}
+          />
+          <TextInput
+            style={style.monto}
+            value={monto}
+            onChangeText={(monto) => setMonto(monto)}
+            placeholder="0.00"
+            keyboardType="numeric"
+            text
+          />
+        </View>
+
+        <View style={style.mensajeContainer}>
+          <MaterialCommunityIcons
+            name="email"
+            size={30}
+            color="black"
+            color={colors.primary}
+          />
+
+          <TextInput
+            underlineColor={colors.background}
+            selectionColor={colors.background}
+            theme={{ roundness: 0 }}
+            style={style.mensaje}
+            value={mensaje}
+            onChangeText={(mensaje) => setMensaje(mensaje)}
+            placeholder="Escriba un mensaje"
+          />
+        </View>
+
+        <Button
+          style={style.button}
+          uppercase={false}
+          mode="contained"
+          onPress={enviar}
+        >
+          Enviar
+        </Button>
       </View>
-
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={() =>
-          navigation.navigate('EnvioExitoso', { name: 'Envío exitoso' })
-        }
-      >
-        Enviar
-      </Button>
-    </View>
-  );
+    );
+  return null;
 };
 
 const style = StyleSheet.create({

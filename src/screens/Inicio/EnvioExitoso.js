@@ -3,14 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 let backgroundColor;
-const EnvioExitoso = ({ navigation }) => {
+const EnvioExitoso = ({ navigation, route }) => {
+  const { monto } = route.params;
   const { colors } = useTheme();
   backgroundColor = colors.background;
 
   return (
     <View style={style.container}>
       <Text style={style.text}>Has enviado:</Text>
-      <Text style={style.monto}>S/. 25.00</Text>
+      <Text style={style.monto}>{`S/. ${monto}`}</Text>
       <View style={style.usuarioContainer}>
         <MaterialCommunityIcons name="account-circle" size={65} color="black" />
         <Text style={style.destino}>Juan Perez Delgado</Text>
