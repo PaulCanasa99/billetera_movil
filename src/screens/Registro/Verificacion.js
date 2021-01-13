@@ -17,7 +17,7 @@ const Verificacion = ({ confirmCode }) => {
         <TextInput
           style={style.input}
           keyboardType="number-pad"
-          textContentType="telephoneNumber"
+          textContentType="oneTimeCode"
           onChangeText={(text) => setCode(text)}
         />
         <Button

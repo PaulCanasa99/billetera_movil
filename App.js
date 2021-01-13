@@ -11,11 +11,14 @@ import {
   DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import firestore from '@react-native-firebase/firestore';
+import Navigator from './src/screens/Navigator';
 import merge from 'deepmerge';
 import fontConfig from './src/utils/fontConfig';
 import { Context } from './src/context/Context';
+import RegistroNavigator from './src/screens/Registro/RegistroNavigator';
+import { useEffect } from 'react';
+import auth from '@react-native-firebase/auth';
 
 const theme = {
   ...PaperDefaultTheme,
@@ -43,96 +46,45 @@ const MyTheme = {
 };
 const CombinedDefaultTheme = merge(theme, MyTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
-import PhoneSignIn from './src/screens/PhoneSignIn';
-import { createStackNavigator } from '@react-navigation/stack';
-import Events from './src/screens/Events';
-import Groups from './src/screens/Groups';
-import Activity from './src/screens/Activity';
-import InicioNavigator from './src/screens/Inicio/InicioNavigator';
-import RegistroNavigator from './src/screens/Registro/RegistroNavigator';
-const Tab = createMaterialBottomTabNavigator();
 
 const App = () => {
-  const [title, setTitle] = useState('');
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  const [usuario, setUsuario] = useState();
   const [destination, setDestination] = useState('');
+  const onAuthStateChanged = (user) => {
+    setUser(user);
+    if (user)
+      firestore()
+        .collection('Usuarios')
+        .where('celular', '==', user.phoneNumber)
+        .limit(1)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((documentSnapshot) => {
+            setUsuario({
+              ...documentSnapshot.data(),
+              userId: documentSnapshot.id,
+            });
+          });
+        });
+    else setUsuario(null);
+    if (initializing) setInitializing(false);
+  };
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
+
   return (
-    <Context.Provider value={{ title, setTitle, destination, setDestination }}>
+    <Context.Provider
+      value={{ usuario, setUsuario, destination, setDestination }}
+    >
       <PaperProvider theme={CombinedDefaultTheme}>
         <NavigationContainer theme={CombinedDefaultTheme}>
-          <RegistroNavigator />
-
-          {/* <Tab.Navigator
-            shifting={false}
-            activeColor="#222831"
-            inactiveColor="#EEEEEE"
-          >
-            <Tab.Screen
-              name="Home"
-              component={InicioNavigator}
-              options={{
-                tabBarLabel: 'Inicio',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="account-cash"
-                    color={color}
-                    size={22}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Events"
-              component={Events}
-              options={{
-                tabBarLabel: 'Eventos',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="calendar-today"
-                    color={color}
-                    size={22}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Groups"
-              component={Groups}
-              options={{
-                tabBarLabel: 'Grupos',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="account-group"
-                    color={color}
-                    size={22}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="Activity"
-              component={Activity}
-              options={{
-                tabBarLabel: 'Actividad',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons
-                    name="compare-horizontal"
-                    color={color}
-                    size={22}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="More"
-              component={PhoneSignIn}
-              options={{
-                tabBarLabel: 'Más',
-                tabBarIcon: ({ color }) => (
-                  <MaterialCommunityIcons name="more" color={color} size={22} />
-                ),
-              }}
-            />
-          </Tab.Navigator> */}
+          {usuario ? <Navigator /> : <RegistroNavigator />}
         </NavigationContainer>
       </PaperProvider>
     </Context.Provider>

@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button, useTheme, Text } from 'react-native-paper';
+import { Context } from '../../context/Context';
+import auth from '@react-native-firebase/auth';
 
 const Home = ({ navigation }) => {
   const { colors } = useTheme();
-
+  const { usuario } = useContext(Context);
+  useEffect(() => {
+    // console.log(user);
+  });
   return (
     <View style={style.container}>
-      <Text style={style.greeting}>Hola Paul, tu saldo es:</Text>
-      <Text style={style.saldo}>S/. 37.50</Text>
+      <Text
+        style={style.greeting}
+      >{`Hola ${usuario.nombres}, tu saldo es:`}</Text>
+      <Text style={style.saldo}>{`S/. ${usuario.saldo}`}</Text>
       <Button
         style={style.button}
         uppercase={false}
@@ -24,7 +32,9 @@ const Home = ({ navigation }) => {
         uppercase={false}
         mode="contained"
         onPress={() =>
-          navigation.navigate('EnviarDinero', { name: 'Enviar dinero' })
+          auth()
+            .signOut()
+            .then(() => console.log('User signed out!'))
         }
         color={colors.accent}
       >

@@ -29,7 +29,10 @@ const Bienvenido = ({ navigation }) => {
     try {
       await confirm.confirm(code);
       console.log('codigo correcto');
-      navigation.navigate('Registro', { name: 'Registro' });
+      navigation.navigate('Registro', {
+        name: 'Registro',
+        phoneNumber: `+51${phoneNumber}`,
+      });
     } catch (error) {
       console.log('Invalid code.');
     }
