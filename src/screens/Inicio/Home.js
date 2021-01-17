@@ -16,7 +16,7 @@ const Home = ({ navigation }) => {
       <Text
         style={style.greeting}
       >{`Hola ${usuario.nombres}, tu saldo es:`}</Text>
-      <Text style={style.saldo}>{`S/. ${usuario.saldo}`}</Text>
+      <Text style={style.saldo}>{`S/. ${usuario.saldo.toFixed(2)}`}</Text>
       <Button
         style={style.button}
         uppercase={false}
@@ -51,21 +51,18 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   greeting: {
-    fontSize: 36,
-    position: 'absolute',
-    top: '12%',
-    width: '70%',
+    fontSize: 32,
+    width: '80%',
     textAlign: 'center',
+    marginBottom: 30,
   },
   saldo: {
     fontSize: 48,
-    position: 'absolute',
-    top: '35%',
     width: '70%',
     textAlign: 'center',
+    marginBottom: 80,
   },
   button: {
-    top: '15%',
     width: '60%',
     marginTop: 50,
     justifyContent: 'center',

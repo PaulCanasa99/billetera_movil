@@ -12,7 +12,7 @@ const RealizarEnvio = ({ navigation, route }) => {
   backgroundColor = colors.background;
   const [monto, setMonto] = useState('');
   const [mensaje, setMensaje] = useState();
-  const { usuario } = useContext(Context);
+  const { usuario, setUsuario } = useContext(Context);
   const [destino, setDestino] = useState();
   const increment = firestore.FieldValue.increment(parseFloat(monto));
   const decrement = firestore.FieldValue.increment(parseFloat(monto) * -1);
@@ -46,9 +46,26 @@ const RealizarEnvio = ({ navigation, route }) => {
       .then(() => {
         console.log('destino updated');
       });
+    firestore()
+      .collection('Transacciones')
+      .add({
+        emisor: usuario.userId,
+        emisorNombres: usuario.nombres,
+        emisorApellidos: usuario.apellidos,
+        destino: destino.userId,
+        destinoNombres: destino.nombres,
+        destinoApellidos: destino.apellidos,
+        fecha: firestore.FieldValue.serverTimestamp(),
+        mensaje: mensaje,
+        monto: parseFloat(monto),
+      });
+    setUsuario({ ...usuario, saldo: usuario.saldo - parseFloat(monto) });
     navigation.navigate('EnvioExitoso', {
       name: 'Envío exitoso',
       monto: monto,
+      destino: destino,
+      mensaje: mensaje,
+      fecha: new Date(),
     });
   };
   if (destino)

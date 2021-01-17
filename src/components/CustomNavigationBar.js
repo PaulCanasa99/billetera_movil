@@ -12,7 +12,12 @@ const CustomNavigationBar = ({ navigation, previous, scene }) => {
   return (
     <Appbar.Header style={style.appBar}>
       {previous ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content style={style.appTitle} title={scene.route.params.name} />
+      <Appbar.Content
+        titleStyle={{ fontFamily: 'Montserrat-SemiBold' }}
+        style={style.appTitle}
+        title={scene.route.params.name}
+      />
+      {previous ? <Appbar.Action /> : null}
     </Appbar.Header>
   );
 };
@@ -22,7 +27,7 @@ const style = StyleSheet.create({
     backgroundColor: '#222831',
   },
   appTitle: {
-    fontWeight: 'bold',
+    alignItems: 'center',
   },
 });
 export default CustomNavigationBar;

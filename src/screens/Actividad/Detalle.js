@@ -5,23 +5,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { convertirFecha } from '../../utils/convertirFecha';
 import { convertirHora } from '../../utils/convertirHora';
 let backgroundColor;
-const EnvioExitoso = ({ navigation, route }) => {
+const Detalle = ({ navigation, route }) => {
   const { monto } = route.params;
-  const { destino } = route.params;
+  const { nombres } = route.params;
+  const { apellidos } = route.params;
   const { mensaje } = route.params;
   const { fecha } = route.params;
+  const { emisor } = route.params;
   const { colors } = useTheme();
   backgroundColor = colors.background;
 
   return (
     <View style={style.container}>
-      <Text style={style.text}>Has enviado:</Text>
+      <Text style={style.text}>{emisor ? 'Has enviado' : 'Has recibido'}:</Text>
       <Text style={style.monto}>{`S/. ${monto}`}</Text>
       <View style={style.usuarioContainer}>
         <MaterialCommunityIcons name="account-circle" size={65} color="black" />
-        <Text
-          style={style.destino}
-        >{`${destino.nombres} ${destino.apellidos}`}</Text>
+        <Text style={style.destino}>{`${nombres} ${apellidos}`}</Text>
       </View>
       <View style={style.dataContainer}>
         <MaterialCommunityIcons
@@ -29,7 +29,9 @@ const EnvioExitoso = ({ navigation, route }) => {
           size={30}
           color={colors.primary}
         />
-        <Text style={style.datos}>{convertirFecha(fecha)}</Text>
+        <Text style={style.datos}>
+          {new Date(fecha.toDate()).toDateString()}
+        </Text>
       </View>
       <View style={style.dataContainer}>
         <MaterialCommunityIcons name="email" size={30} color={colors.primary} />
@@ -89,4 +91,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default EnvioExitoso;
+export default Detalle;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import InicioNavigator from './Inicio/InicioNavigator';
 import Events from './Eventos/Events';
 import Groups from './Grupos/Groups';
-import Activity from './Actividad/Activity';
+import ActividadNavigator from './Actividad/ActividadNavigator';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -59,7 +59,7 @@ const Navigator = () => {
       />
       <Tab.Screen
         name="Activity"
-        component={Activity}
+        component={ActividadNavigator}
         options={{
           tabBarLabel: 'Actividad',
           tabBarIcon: ({ color }) => (
