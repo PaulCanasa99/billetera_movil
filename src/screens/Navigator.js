@@ -1,6 +1,6 @@
 import * as React from 'react';
 import InicioNavigator from './Inicio/InicioNavigator';
-import Events from './Eventos/Events';
+import EventosNavigator from './Eventos/EventosNavigator';
 import Groups from './Grupos/Groups';
 import ActividadNavigator from './Actividad/ActividadNavigator';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -30,8 +30,8 @@ const Navigator = () => {
         }}
       />
       <Tab.Screen
-        name="Events"
-        component={Events}
+        name="EventosNavigator"
+        component={EventosNavigator}
         options={{
           tabBarLabel: 'Eventos',
           tabBarIcon: ({ color }) => (
