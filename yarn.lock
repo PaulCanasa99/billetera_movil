@@ -1554,6 +1554,13 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-community/datetimepicker@^3.0.9":
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-3.0.9.tgz#14e96c0a9049d76165f77ded95251e50c596b910"
+  integrity sha512-8Hel5K2xQNJsGQleUT5fheO60aO0/KhP9nkbDzfGgv3Cdckrf2xWQs0JK3xUhuDoUztpMZS45jqE2WPS7fBdgA==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-community/masked-view@^0.1.10":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
@@ -6396,6 +6403,11 @@ react-native-contacts@^5.2.3:
   version "5.2.8"
   resolved "https://registry.yarnpkg.com/react-native-contacts/-/react-native-contacts-5.2.8.tgz#280fce6b10ad1be4dc58f78f1c118be436ee98a0"
   integrity sha512-HqY2jWGjAnSdkLrEBz1rW7ruEatqR0p+a4avVof1HxG31Isp21AHvnpd3PAwm70e+3SEAfmLA/OcNWoK9KSvgw==
+
+react-native-date-picker@^3.2.8:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-3.2.8.tgz#91501514f7c25b8251ae805561e2e303398f0729"
+  integrity sha512-tgBkhzOK32ZAIO+vDPL2cU55mMnsqdO+LZG62YBbN5rbs2D2vIeBGjAer5RFCrLB55oIStWwLiRtFYfApqjhpg==
 
 react-native-gesture-handler@^1.9.0:
   version "1.9.0"
