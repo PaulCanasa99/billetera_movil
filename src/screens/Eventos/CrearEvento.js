@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Image, Platform } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Button, useTheme, Text } from 'react-native-paper';
 import firestore from '@react-native-firebase/firestore';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { Context } from '../../context/Context';
 
-const CrearEvento = () => {
+const CrearEvento = ({ navigation }) => {
   const { colors } = useTheme();
-  const [nombres, setNombres] = useState('');
-  const [apellidos, setApellidos] = useState('');
-  const [email, setEmail] = useState('');
-  const [dni, setDni] = useState('');
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [nombre, setNombre] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [precio, setPrecio] = useState();
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+  const { usuario } = useContext(Context);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -33,11 +37,22 @@ const CrearEvento = () => {
   const showTimepicker = () => {
     showMode('time');
   };
-  const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+
+  const Crear = () => {
+    firestore()
+      .collection('Eventos')
+      .add({
+        organizadorId: usuario.userId,
+        organizadorNombres: usuario.nombres,
+        organizadorApellidos: usuario.apellidos,
+        nombre: nombre,
+        descripcion: descripcion,
+        precio: parseFloat(precio),
+        fecha: date,
+      })
+      .then(() => {
+        navigation.navigate('Tus eventos');
+      });
   };
 
   return (
@@ -59,7 +74,7 @@ const CrearEvento = () => {
           <TextInput
             type="outlined"
             style={style.input}
-            onChangeText={(text) => setNombres(text)}
+            onChangeText={(text) => setNombre(text)}
           />
         </View>
         <View style={style.inputContainer}>
@@ -71,7 +86,7 @@ const CrearEvento = () => {
           <TextInput
             type="outlined"
             style={style.input}
-            onChangeText={(text) => setApellidos(text)}
+            onChangeText={(text) => setDescripcion(text)}
           />
         </View>
         <View style={style.inputContainer}>
@@ -85,23 +100,39 @@ const CrearEvento = () => {
             style={style.input}
             textContentType="emailAddress"
             keyboardType="number-pad"
-            onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => setPrecio(text)}
           />
         </View>
         <View style={style.inputContainer}>
-          <Text
-            style={{ fontFamily: 'Montserrat-SemiBold', color: colors.primary }}
-          >
-            Fecha y hora:
+          <View style={style.fecha}>
+            <Text
+              style={{
+                fontFamily: 'Montserrat-SemiBold',
+                color: colors.primary,
+                flexGrow: 1,
+              }}
+            >
+              Fecha y hora:
+            </Text>
+            <MaterialCommunityIcons
+              onPress={showDatepicker}
+              name="calendar-outline"
+              size={20}
+              color={colors.primary}
+            />
+            <MaterialCommunityIcons
+              onPress={showTimepicker}
+              name="clock-outline"
+              size={20}
+              color={colors.primary}
+            />
+          </View>
+
+          <Text style={style.date}>
+            {format(date, "EEEE, d 'de' MMMM 'a las' HH:mm", { locale: es })}
           </Text>
-          <Text style={style.input}>{date.toLocaleDateString('de-DE')}</Text>
         </View>
-        <View>
-          <Button onPress={showDatepicker}> gaa</Button>
-        </View>
-        <View>
-          <Button onPress={showTimepicker}>gaea </Button>
-        </View>
+
         {show && (
           <RNDateTimePicker
             testID="dateTimePicker"
@@ -110,9 +141,15 @@ const CrearEvento = () => {
             is24Hour={true}
             display="default"
             onChange={onChange}
+            minimumDate={new Date()}
           />
         )}
-        <Button style={style.button} uppercase={false} mode="contained">
+        <Button
+          style={style.button}
+          uppercase={false}
+          mode="contained"
+          onPress={Crear}
+        >
           Crear evento
         </Button>
       </View>
@@ -128,6 +165,12 @@ const style = StyleSheet.create({
     width: '60%',
     justifyContent: 'center',
     marginVertical: 20,
+  },
+  date: {
+    borderBottomColor: '#00ADB5',
+    borderBottomWidth: 1,
+    marginVertical: 10,
+    height: 30,
   },
   input: {
     borderBottomColor: '#00ADB5',
@@ -148,6 +191,9 @@ const style = StyleSheet.create({
     height: 175,
     marginBottom: 20,
     resizeMode: 'stretch',
+  },
+  fecha: {
+    flexDirection: 'row',
   },
 });
 

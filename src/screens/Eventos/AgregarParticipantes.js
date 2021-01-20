@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import {
+  ActivityIndicator,
   PermissionsAndroid,
   Platform,
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { Searchbar, Divider, List } from 'react-native-paper';
+import {
+  Searchbar,
+  Divider,
+  List,
+  Checkbox,
+  useTheme,
+  Button,
+} from 'react-native-paper';
 import Contacts from 'react-native-contacts';
 
-const EnviarDinero = ({ navigation }) => {
+const AgregarParticipantes = ({ navigation }) => {
+  const { colors } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [contacts, setContacts] = useState(null);
+  const [invitados, setInvitados] = useState([]);
+  const [loading, setLoading] = useState(true);
   const onChangeSearch = (query) => setSearchQuery(query);
   useEffect(() => {
     if (Platform.OS === 'ios') {
@@ -19,6 +30,7 @@ const EnviarDinero = ({ navigation }) => {
           throw err;
         }
         setContacts(data);
+        setLoading(false);
       });
     } else if (Platform.OS === 'android') {
       PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_CONTACTS, {
@@ -32,17 +44,30 @@ const EnviarDinero = ({ navigation }) => {
             throw err;
           } else {
             setContacts(data);
+            setLoading(false);
           }
         });
       });
     }
   }, []);
   const handlePress = (phoneNumber) => {
-    navigation.navigate('RealizarEnvio', {
-      name: 'Realizar envío',
-      phoneNumber: phoneNumber,
-    });
+    let newArray;
+    const index = invitados.indexOf(phoneNumber);
+    if (index > -1) {
+      newArray = [...invitados];
+      newArray.splice(index, 1);
+    } else {
+      newArray = [...invitados, phoneNumber];
+    }
+    setInvitados(newArray);
   };
+
+  const agregarInvitados = () => {
+    console.log(invitados);
+  };
+  if (loading) {
+    return <ActivityIndicator />;
+  }
   return (
     <>
       <Searchbar
@@ -51,44 +76,62 @@ const EnviarDinero = ({ navigation }) => {
         onChangeText={onChangeSearch}
         value={searchQuery}
       />
-      <Divider style={style.divider} />
+      <Divider style={{ height: 1, backgroundColor: colors.primary }} />
       <ScrollView>
         {contacts &&
           contacts.map((contact) => {
             return (
               <List.Item
                 key={contact.phoneNumbers[0].number}
-                onPress={() => handlePress(contact.phoneNumbers[0].number)}
                 style={style.listItem}
                 title={`${contact.givenName} ${contact.familyName}`}
                 description={contact.phoneNumbers[0].number}
                 left={() => <List.Icon icon="account" />}
+                right={() => (
+                  <Checkbox
+                    onPress={() => handlePress(contact.phoneNumbers[0].number)}
+                    status={
+                      invitados.includes(contact.phoneNumbers[0].number)
+                        ? 'checked'
+                        : 'unchecked'
+                    }
+                    color={colors.text}
+                    uncheckedColor={colors.text}
+                  />
+                )}
               />
             );
           })}
+        <Divider style={{ height: 1, backgroundColor: colors.primary }} />
+        <Button
+          style={style.button}
+          uppercase={false}
+          mode="contained"
+          onPress={agregarInvitados}
+        >
+          Agregar
+        </Button>
       </ScrollView>
     </>
   );
 };
 
 const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   searchBar: {
     backgroundColor: 'white',
     width: '95%',
     alignSelf: 'center',
     marginVertical: 10,
   },
-  divider: {
-    height: 1,
-  },
   listItem: {
-    paddingLeft: 15,
+    paddingHorizontal: 15,
+  },
+  button: {
+    width: '60%',
+    justifyContent: 'center',
+    marginVertical: 20,
+    alignSelf: 'center',
   },
 });
 
-export default EnviarDinero;
+export default AgregarParticipantes;

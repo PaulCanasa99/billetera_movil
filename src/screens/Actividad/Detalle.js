@@ -2,16 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { convertirFecha } from '../../utils/convertirFecha';
-import { convertirHora } from '../../utils/convertirHora';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 let backgroundColor;
 const Detalle = ({ navigation, route }) => {
-  const { monto } = route.params;
-  const { nombres } = route.params;
-  const { apellidos } = route.params;
-  const { mensaje } = route.params;
-  const { fecha } = route.params;
-  const { emisor } = route.params;
+  const { monto, nombres, apellidos, mensaje, fecha, emisor } = route.params;
   const { colors } = useTheme();
   backgroundColor = colors.background;
 
@@ -30,7 +25,9 @@ const Detalle = ({ navigation, route }) => {
           color={colors.primary}
         />
         <Text style={style.datos}>
-          {new Date(fecha.toDate()).toDateString()}
+          {format(fecha.toDate(), "EEEE, d 'de' MMMM 'a las' HH:mm", {
+            locale: es,
+          })}
         </Text>
       </View>
       <View style={style.dataContainer}>

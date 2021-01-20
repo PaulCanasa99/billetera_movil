@@ -83,7 +83,7 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   listItem: {
-    marginLeft: '2%',
+    paddingLeft: 15,
   },
   monto: {
     alignSelf: 'center',
