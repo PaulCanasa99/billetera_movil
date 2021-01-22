@@ -91,7 +91,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 30,
   },
   button: {
     width: '60%',
@@ -109,7 +109,7 @@ const style = StyleSheet.create({
     width: '80%',
     backgroundColor: '#EEEEEE',
     borderRadius: 10,
-    marginBottom: 25,
+    marginBottom: 45,
   },
 });
 

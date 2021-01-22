@@ -59,7 +59,6 @@ const RealizarEnvio = ({ navigation, route }) => {
         mensaje: mensaje,
         monto: parseFloat(monto),
       });
-    setUsuario({ ...usuario, saldo: usuario.saldo - parseFloat(monto) });
     navigation.navigate('EnvioExitoso', {
       name: 'Envío exitoso',
       monto: monto,

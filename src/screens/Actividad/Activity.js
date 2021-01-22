@@ -3,29 +3,40 @@ import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { List, Text } from 'react-native-paper';
 import { Context } from '../../context/Context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Activity = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [transacciones, setTransacciones] = useState([]);
   const { usuario } = useContext(Context);
   useEffect(() => {
-    const subscriber = firestore()
+    const movimientos = [];
+    firestore()
       .collection('Transacciones')
+      .where('emisor', '==', usuario.userId)
       .onSnapshot((querySnapshot) => {
-        const transacciones = [];
         querySnapshot.forEach((documentSnapshot) => {
-          transacciones.push({
+          movimientos.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
           });
         });
-        setTransacciones(transacciones);
+      });
+    firestore()
+      .collection('Transacciones')
+      .where('destino', '==', usuario.userId)
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((documentSnapshot) => {
+          movimientos.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+        movimientos.sort((a, b) => b.fecha.toDate() - a.fecha.toDate());
+        setTransacciones(movimientos);
         setLoading(false);
       });
-
-    // Unsubscribe from events when no longer in use
-    return () => subscriber();
-  }, []);
+  }, [usuario]);
 
   if (loading) {
     return <ActivityIndicator />;
@@ -34,44 +45,45 @@ const Activity = ({ navigation }) => {
   return (
     <>
       <Text style={style.mes}>Enero 2021</Text>
-      <FlatList
-        data={transacciones}
-        renderItem={({ item }) => {
-          const emisor = item.emisor === usuario.userId;
-          return (
-            <List.Item
-              onPress={() =>
-                navigation.navigate('Detalle', {
-                  monto: item.monto,
-                  mensaje: item.mensaje,
-                  fecha: item.fecha,
-                  nombres: emisor ? item.destinoNombres : item.emisorNombres,
-                  apellidos: emisor
-                    ? item.destinoApellidos
-                    : item.emisorApellidos,
-                  emisor: emisor,
-                  name: 'Detalle transacción',
-                })
-              }
-              style={style.listItem}
-              title={
-                emisor
-                  ? `${item.destinoNombres} ${item.destinoApellidos}`
-                  : `${item.emisorNombres} ${item.emisorApellidos}`
-              }
-              left={() => <List.Icon icon="account" />}
-              right={() => (
-                <Text
-                  style={{
-                    ...style.monto,
-                    color: emisor ? 'red' : 'black',
-                  }}
-                >{`S/. ${item.monto.toFixed(2)}`}</Text>
-              )}
-            />
-          );
-        }}
-      />
+      <ScrollView>
+        {transacciones &&
+          transacciones.map((item) => {
+            const emisor = item.emisor === usuario.userId;
+            return (
+              <List.Item
+                key={item.key}
+                onPress={() =>
+                  navigation.navigate('Detalle', {
+                    monto: item.monto,
+                    mensaje: item.mensaje,
+                    fecha: item.fecha,
+                    nombres: emisor ? item.destinoNombres : item.emisorNombres,
+                    apellidos: emisor
+                      ? item.destinoApellidos
+                      : item.emisorApellidos,
+                    emisor: emisor,
+                    name: 'Detalle transacción',
+                  })
+                }
+                style={style.listItem}
+                title={
+                  emisor
+                    ? `${item.destinoNombres} ${item.destinoApellidos}`
+                    : `${item.emisorNombres} ${item.emisorApellidos}`
+                }
+                left={() => <List.Icon icon="account" />}
+                right={() => (
+                  <Text
+                    style={{
+                      ...style.monto,
+                      color: emisor ? 'red' : 'black',
+                    }}
+                  >{`S/. ${item.monto.toFixed(2)}`}</Text>
+                )}
+              />
+            );
+          })}
+      </ScrollView>
     </>
   );
 };

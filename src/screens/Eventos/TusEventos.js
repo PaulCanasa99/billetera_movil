@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Button, useTheme, Text, List } from 'react-native-paper';
+import React, { useEffect, useState, useContext } from 'react';
+import { Button, useTheme, List } from 'react-native-paper';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { Context } from '../../context/Context';
 
 const TusEventos = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const { colors } = useTheme();
   const [eventos, setEventos] = useState([]);
+  const { usuario } = useContext(Context);
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('Eventos')
+      .where('organizadorId', '==', usuario.userId)
       .onSnapshot((querySnapshot) => {
         const eventos = [];
         querySnapshot.forEach((documentSnapshot) => {
@@ -75,35 +78,12 @@ const TusEventos = ({ navigation }) => {
                   organizadorId: item.organizadorId,
                   organizadorNombres: item.organizadorNombres,
                   organizadorApellidos: item.organizadorApellidos,
+                  eventoId: item.key,
                 })
               }
             />
           );
         }}
-      />
-      <List.Item
-        left={() => <List.Icon icon="account" />}
-        style={{ ...style.listItem, borderBottomColor: colors.primary }}
-        title="Pichanga"
-        titleStyle={{ fontSize: 18, color: colors.text }}
-        description="jueves, 24 de diciembre"
-        descriptionStyle={{ fontSize: 18, color: colors.text }}
-      />
-      <List.Item
-        left={() => <List.Icon icon="account" />}
-        style={{ ...style.listItem, borderBottomColor: colors.primary }}
-        title="Pichanga"
-        titleStyle={{ fontSize: 18, color: colors.text }}
-        description="jueves, 24 de diciembre"
-        descriptionStyle={{ fontSize: 18, color: colors.text }}
-      />
-      <List.Item
-        left={() => <List.Icon icon="account" />}
-        style={{ ...style.listItem, borderBottomColor: colors.primary }}
-        title="Pichanga"
-        titleStyle={{ fontSize: 18, color: colors.text }}
-        description="jueves, 24 de diciembre"
-        descriptionStyle={{ fontSize: 18, color: colors.text }}
       />
     </View>
   );

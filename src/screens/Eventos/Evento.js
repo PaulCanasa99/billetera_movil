@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const Evento = ({ navigation, route }) => {
   const { colors } = useTheme();
-  const { descripcion, precio } = route.params;
+  const { descripcion, precio, eventoId } = route.params;
 
   return (
     <ScrollView>
@@ -80,7 +80,11 @@ const Evento = ({ navigation, route }) => {
             name="account-plus"
             color="black"
             size={26}
-            onPress={() => navigation.navigate('Agregar Participantes')}
+            onPress={() =>
+              navigation.navigate('Agregar Participantes', {
+                eventoId: eventoId,
+              })
+            }
           />
         </View>
         <Button style={style.button} uppercase={false} mode="contained">

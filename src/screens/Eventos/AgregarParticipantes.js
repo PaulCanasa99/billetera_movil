@@ -15,9 +15,11 @@ import {
   Button,
 } from 'react-native-paper';
 import Contacts from 'react-native-contacts';
+import firestore from '@react-native-firebase/firestore';
 
-const AgregarParticipantes = ({ navigation }) => {
+const AgregarParticipantes = ({ navigation, route }) => {
   const { colors } = useTheme();
+  const { eventoId } = route.params;
   const [searchQuery, setSearchQuery] = useState('');
   const [contacts, setContacts] = useState(null);
   const [invitados, setInvitados] = useState([]);
@@ -64,6 +66,19 @@ const AgregarParticipantes = ({ navigation }) => {
 
   const agregarInvitados = () => {
     console.log(invitados);
+    console.log(eventoId);
+    invitados.forEach((invitado) =>
+      firestore()
+        .doc(`Eventos/${eventoId}`)
+        .update({
+          invitados: firestore.FieldValue.arrayUnion(
+            invitado.replace(/\s/g, '')
+          ),
+        })
+        .then(() => {
+          console.log('gaa');
+        })
+    );
   };
   if (loading) {
     return <ActivityIndicator />;

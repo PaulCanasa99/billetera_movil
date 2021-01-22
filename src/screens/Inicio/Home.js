@@ -4,13 +4,21 @@ import { View, StyleSheet } from 'react-native';
 import { Button, useTheme, Text } from 'react-native-paper';
 import { Context } from '../../context/Context';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 const Home = ({ navigation }) => {
   const { colors } = useTheme();
-  const { usuario } = useContext(Context);
+  const { usuario, setUsuario } = useContext(Context);
   useEffect(() => {
-    // console.log(user);
-  });
+    const subscriber = firestore()
+      .collection('Usuarios')
+      .doc(usuario.userId)
+      .onSnapshot((documentSnapshot) => {
+        setUsuario({ ...usuario, saldo: documentSnapshot.data().saldo });
+      });
+    // Unsubscribe from events when no longer in use
+    return () => subscriber();
+  }, []);
   return (
     <View style={style.container}>
       <Text
