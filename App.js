@@ -22,14 +22,11 @@ import auth from '@react-native-firebase/auth';
 
 const theme = {
   ...PaperDefaultTheme,
-  roundness: 50,
+  roundness: 10,
   fonts: configureFonts(fontConfig),
   colors: {
     ...PaperDefaultTheme.colors,
-    primary: '#00ADB5',
     accent: '#EEEEEE',
-    background: '#A6E3E9',
-    text: '#222831',
     surface: '#222831',
   },
 };
@@ -39,7 +36,7 @@ const MyTheme = {
   colors: {
     ...NavigationDefaultTheme.colors,
     primary: '#00ADB5',
-    background: '#A6E3E9',
+    background: '#FFFFFF',
     text: '#222831',
     card: '#222831',
   },

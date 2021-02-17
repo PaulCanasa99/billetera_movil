@@ -1,10 +1,11 @@
 import * as React from 'react';
 import InicioNavigator from './Inicio/InicioNavigator';
 import EventosNavigator from './Eventos/EventosNavigator';
-import Groups from './Grupos/Groups';
+import GroupsNavigator from './Grupos/GroupsNavigator';
 import ActividadNavigator from './Actividad/ActividadNavigator';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import IZIMoneyNavigator from './IZIMoney/IZIMoneyNavigator';
 
 const Navigator = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -21,8 +22,32 @@ const Navigator = () => {
         options={{
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={22} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Groups"
+        component={GroupsNavigator}
+        options={{
+          tabBarLabel: 'Grupos',
+          tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="account-cash"
+              name="account-group"
+              color={color}
+              size={22}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="IZIMoney"
+        component={IZIMoneyNavigator}
+        options={{
+          tabBarLabel: 'IZIMoney',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="view-dashboard"
               color={color}
               size={22}
             />
@@ -36,21 +61,7 @@ const Navigator = () => {
           tabBarLabel: 'Eventos',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="calendar-today"
-              color={color}
-              size={22}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Groups"
-        component={Groups}
-        options={{
-          tabBarLabel: 'Grupos',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="account-group"
+              name="calendar-blank"
               color={color}
               size={22}
             />
@@ -64,23 +75,13 @@ const Navigator = () => {
           tabBarLabel: 'Actividad',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
-              name="compare-horizontal"
+              name="account-circle"
               color={color}
               size={22}
             />
           ),
         }}
       />
-      {/* <Tab.Screen
-      name="More"
-      component={PhoneSignIn}
-      options={{
-        tabBarLabel: 'Más',
-        tabBarIcon: ({ color }) => (
-          <MaterialCommunityIcons name="more" color={color} size={22} />
-        ),
-      }}
-    /> */}
     </Tab.Navigator>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useTheme, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { convertirFecha } from '../../utils/convertirFecha';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 let backgroundColor;
