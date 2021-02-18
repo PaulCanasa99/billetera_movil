@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
   }, []);
   return (
     <View style={style.container}>
-      <Text style={style.greeting}>{`Hola ${usuario.nombres}`}</Text>
+      <Text style={style.greeting}>{`Hola salvaje`}</Text>
       <View style={style.card}>
         <View style={{ ...style.balance, borderBottomColor: colors.primary }}>
           <Text style={{ fontSize: 18 }}>Tu balance:</Text>
