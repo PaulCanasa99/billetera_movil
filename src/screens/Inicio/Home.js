@@ -75,7 +75,7 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                console.log('gaea');
+                navigation.navigate('EnviarDinero', { name: 'Enviar dinero' });
               }}
             >
               <Image
@@ -170,10 +170,14 @@ const style = StyleSheet.create({
   card: {
     alignItems: 'center',
     width: '90%',
-    borderColor: 'black',
-    borderWidth: 0.5,
     borderRadius: 10,
     padding: 10,
+    elevation: 5,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   balance: {
     flexDirection: 'row',
