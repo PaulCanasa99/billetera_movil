@@ -1,22 +1,23 @@
-import React, { useContext } from 'react';
-import { useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Button, useTheme, Text, Divider } from 'react-native-paper';
-import { Context } from '../../context/Context';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useContext } from "react";
+import { useEffect } from "react";
+import { View, StyleSheet, Image } from "react-native";
+import { Button, useTheme, Text, Divider } from "react-native-paper";
+import { Context } from "../../context/Context";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Home = ({ navigation }) => {
   const { colors } = useTheme();
   const { usuario, setUsuario } = useContext(Context);
   useEffect(() => {
     const subscriber = firestore()
-      .collection('Usuarios')
+      .collection("Usuarios")
       .doc(usuario.userId)
       .onSnapshot((documentSnapshot) => {
-        setUsuario({ ...usuario, saldo: documentSnapshot.data().saldo });
+        documentSnapshot.data() &&
+          setUsuario({ ...usuario, saldo: documentSnapshot.data().saldo });
       });
     // Unsubscribe from events when no longer in use
     return () => subscriber();
@@ -30,7 +31,7 @@ const Home = ({ navigation }) => {
           <Text
             style={{
               color: colors.primary,
-              fontFamily: 'Montserrat-SemiBold',
+              fontFamily: "Montserrat-SemiBold",
               fontSize: 18,
             }}
           >{`S/. ${usuario.saldo.toFixed(2)}`}</Text>
@@ -41,13 +42,13 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                console.log('gaea');
+                console.log("gaea");
               }}
             >
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343",
                 }}
                 style={style.image}
               />
@@ -58,13 +59,13 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                console.log('gaea');
+                console.log("gaea");
               }}
             >
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/Split_Bill-512.png?alt=media&token=83b15474-2697-4294-b55a-341f196e3cc8',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/Split_Bill-512.png?alt=media&token=83b15474-2697-4294-b55a-341f196e3cc8",
                 }}
                 style={style.image}
               />
@@ -75,13 +76,13 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                navigation.navigate('EnviarDinero', { name: 'Enviar dinero' });
+                navigation.navigate("EnviarDinero", { name: "Enviar dinero" });
               }}
             >
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-transfer.png?alt=media&token=cad6b729-6592-44fb-9c88-08e7605f06ee',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-transfer.png?alt=media&token=cad6b729-6592-44fb-9c88-08e7605f06ee",
                 }}
                 style={style.image}
               />
@@ -91,10 +92,10 @@ const Home = ({ navigation }) => {
       </View>
       <Text
         style={{
-          fontFamily: 'Montserrat-SemiBold',
+          fontFamily: "Montserrat-SemiBold",
           fontSize: 24,
           margin: 25,
-          alignSelf: 'flex-start',
+          alignSelf: "flex-start",
         }}
       >
         Pagos pendientes
@@ -124,7 +125,7 @@ const Home = ({ navigation }) => {
         style={{
           backgroundColor: colors.primary,
           height: 2,
-          width: '100%',
+          width: "100%",
           marginVertical: 15,
         }}
       ></Divider>
@@ -133,7 +134,7 @@ const Home = ({ navigation }) => {
         uppercase={false}
         mode="contained"
         onPress={() =>
-          navigation.navigate('EnviarDinero', { name: 'Enviar dinero' })
+          navigation.navigate("EnviarDinero", { name: "Enviar dinero" })
         }
       >
         Enviar dinero
@@ -145,7 +146,7 @@ const Home = ({ navigation }) => {
         onPress={() =>
           auth()
             .signOut()
-            .then(() => console.log('User signed out!'))
+            .then(() => console.log("User signed out!"))
         }
         color={colors.accent}
       >
@@ -158,69 +159,69 @@ const Home = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 20,
   },
   greeting: {
     fontSize: 32,
-    width: '80%',
-    textAlign: 'center',
+    width: "80%",
+    textAlign: "center",
     marginBottom: 20,
   },
   card: {
-    alignItems: 'center',
-    width: '90%',
+    alignItems: "center",
+    width: "90%",
     borderRadius: 10,
     padding: 10,
     elevation: 5,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor: "white",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   balance: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '95%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "95%",
     borderBottomWidth: 1.5,
     paddingBottom: 10,
   },
   buttonsContainer: {
     marginTop: 25,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '95%',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "95%",
   },
   opciones: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
     borderWidth: 1,
-    width: '60%',
+    width: "60%",
     height: 30,
   },
   button: {
-    width: '60%',
+    width: "60%",
     marginTop: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   debes: {
     borderRadius: 0,
     flex: 1,
-    height: '100%',
-    justifyContent: 'center',
+    height: "100%",
+    justifyContent: "center",
   },
   teDeben: {
     borderRadius: 0,
     flex: 1,
-    height: '100%',
-    justifyContent: 'center',
+    height: "100%",
+    justifyContent: "center",
   },
   image: {
     width: 50,
     height: 50,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 10,
   },
 });
