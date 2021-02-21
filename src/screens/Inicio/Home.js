@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
   }, []);
   return (
     <View style={style.container}>
-      <Text style={style.greeting}>{`Hola salvaje`}</Text>
+      <Text style={style.greeting}>{`Hola ${usuario.nombres}`}</Text>
       <View style={style.card}>
         <View style={{ ...style.balance, borderBottomColor: colors.primary }}>
           <Text style={{ fontSize: 18 }}>Tu balance:</Text>
@@ -38,12 +38,7 @@ const Home = ({ navigation }) => {
         <View style={style.buttonsContainer}>
           <View style={style.buttonContainer}>
             <Text>Solicitar</Text>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => {
-                console.log('gaea');
-              }}
-            >
+            <TouchableOpacity activeOpacity={0.5}>
               <Image
                 source={{
                   uri:

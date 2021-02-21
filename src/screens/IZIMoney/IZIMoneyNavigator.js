@@ -6,6 +6,16 @@ import { StyleSheet } from 'react-native';
 import EnviarDinero from './EnviarDinero/EnviarDinero';
 import RealizarEnvio from './EnviarDinero/RealizarEnvio';
 import EnvioExitoso from './EnviarDinero/EnvioExitoso';
+import PrestarDinero from './Prestamos/PrestarDinero';
+import RealizarPrestamo from './Prestamos/RealizarPrestamo';
+import PrestamoExitoso from './Prestamos/PrestamoExitoso';
+import SolicitarDinero from './SolicitarDinero/SolicitarDinero';
+import RealizarSolicitud from './SolicitarDinero/RealizarSolicitud';
+import SolicitudEnviada from './SolicitarDinero/SolicitudEnviada';
+import DividirCuenta from './DividirCuenta/DividirCuenta';
+import PagosPendientes from './PagosPendientes/PagosPendientes';
+import PagarGasto from './PagosPendientes/PagarGasto';
+import PagoExitoso from './PagosPendientes/PagoExitoso';
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -37,6 +47,16 @@ const IZIMoneyNavigator = () => {
       <Stack.Screen name="Enviar dinero" component={EnviarDinero} />
       <Stack.Screen name="Realizar envio" component={RealizarEnvio} />
       <Stack.Screen name="Envio exitoso" component={EnvioExitoso} />
+      <Stack.Screen name="Prestar dinero" component={PrestarDinero} />
+      <Stack.Screen name="Realizar prestamo" component={RealizarPrestamo} />
+      <Stack.Screen name="Prestamo exitoso" component={PrestamoExitoso} />
+      <Stack.Screen name="Solicitar dinero" component={SolicitarDinero} />
+      <Stack.Screen name="Realizar solicitud" component={RealizarSolicitud} />
+      <Stack.Screen name="Solicitud enviada" component={SolicitudEnviada} />
+      <Stack.Screen name="Dividir cuenta" component={DividirCuenta} />
+      <Stack.Screen name="Pagos pendientes" component={PagosPendientes} />
+      <Stack.Screen name="Pagar gasto" component={PagarGasto} />
+      <Stack.Screen name="Pago exitoso" component={PagoExitoso} />
     </Stack.Navigator>
   );
 };
