@@ -24,7 +24,13 @@ const IZIMoney = ({ navigation }) => {
           <Text style={{ alignSelf: 'center' }}>Enviar Dinero</Text>
         </View>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity
+            style={style.imageContainer}
+            activeOpacity={0.75}
+            onPress={() => {
+              navigation.navigate('Dividir cuenta');
+            }}
+          >
             <Image
               source={{
                 uri:
@@ -38,7 +44,15 @@ const IZIMoney = ({ navigation }) => {
       </View>
       <View style={style.row}>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity
+            style={style.imageContainer}
+            activeOpacity={0.75}
+            onPress={() => {
+              navigation.navigate('Solicitar dinero', {
+                name: 'Solicitar dinero',
+              });
+            }}
+          >
             <Image
               source={{
                 uri:
@@ -50,11 +64,15 @@ const IZIMoney = ({ navigation }) => {
           <Text>Solicitar Dinero</Text>
         </View>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity
+            style={style.imageContainer}
+            activeOpacity={0.75}
+            onPress={() => navigation.navigate('Prestar dinero')}
+          >
             <Image
               source={{
                 uri:
-                  'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343',
+                  'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-bag.png?alt=media&token=3af9503e-9a52-4fc8-98a9-ed5ab5502d6a',
               }}
               style={style.image}
             />
@@ -64,11 +82,17 @@ const IZIMoney = ({ navigation }) => {
       </View>
       <View style={style.row}>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity
+            style={style.imageContainer}
+            activeOpacity={0.75}
+            onPress={() => {
+              navigation.navigate('Pagos pendientes');
+            }}
+          >
             <Image
               source={{
                 uri:
-                  'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343',
+                  'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-clock.png?alt=media&token=60e53bb3-0009-4ffa-94c7-2fd939863961',
               }}
               style={style.image}
             />
@@ -128,7 +152,7 @@ const style = StyleSheet.create({
     shadowRadius: 5,
   },
   image: {
-    width: 75,
+    width: 70,
     height: 70,
     alignSelf: 'center',
     margin: 10,
