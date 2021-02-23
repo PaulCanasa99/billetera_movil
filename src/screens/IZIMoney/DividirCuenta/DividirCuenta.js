@@ -1,83 +1,189 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Button, useTheme, List } from 'react-native-paper';
+import { Button, useTheme, List, Text } from 'react-native-paper';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { TouchableOpacity, TextInput } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DividirCuenta = ({ navigation }) => {
+  const [monto, setMonto] = useState('');
+  const [mensaje, setMensaje] = useState();
   const [loading, setLoading] = useState(true);
-  const [modo, setModo] = useState('proximos');
   const { colors } = useTheme();
-  const [eventos, setEventos] = useState([]);
   const data = [0, 1, 2];
+  const dividirCuenta = () => {
+    navigation.navigate('Dividir', {
+      name: 'Dividir',
+      monto: 20.5,
+      destino: { nombres: 'Andrés', apellidos: 'Koga' },
+      mensaje: 'Para el almuerzo',
+    });
+  };
   return (
     <View style={style.container}>
-      <View
-        style={{ ...style.buttonsContainer, borderBottomColor: colors.primary }}
-      >
-        <Button
-          theme={{ roundness: 0 }}
-          labelStyle={{ fontSize: 20 }}
-          color={modo === 'proximos' ? 'white' : colors.text}
+      <TouchableOpacity style={style.touchable} activeOpacity={0.75}>
+        <Text
           style={{
-            ...style.proximos,
-            backgroundColor:
-              modo === 'proximos' ? colors.primary : colors.background,
+            flexGrow: 0.5,
+            color: colors.primary,
+            fontFamily: 'Montserrat-SemiBold',
           }}
-          onPress={() => setModo('proximos')}
-          uppercase={false}
         >
-          Próximos
-        </Button>
-        <Button
-          theme={{ roundness: 0 }}
-          labelStyle={{ fontSize: 20 }}
-          color={modo === 'antiguos' ? 'white' : colors.text}
+          Divido entre ti y:
+        </Text>
+        <View style={{ alignItems: 'center' }}>
+          <MaterialCommunityIcons
+            name="account"
+            size={30}
+            color={colors.primary}
+            style={style.image}
+          ></MaterialCommunityIcons>
+          <Text style={{ fontSize: 10 }}>Andrés</Text>
+        </View>
+
+        <View style={{ alignItems: 'center' }}>
+          <MaterialCommunityIcons
+            name="account"
+            size={30}
+            color={colors.primary}
+            style={style.image}
+          ></MaterialCommunityIcons>
+          <Text style={{ fontSize: 10 }}>Andrés</Text>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <MaterialCommunityIcons
+            name="account"
+            size={30}
+            color={colors.primary}
+            style={style.image}
+          ></MaterialCommunityIcons>
+          <Text style={{ fontSize: 10 }}>Andrés</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={{ marginVertical: 40 }}>
+        <Text
           style={{
-            ...style.proximos,
-            backgroundColor:
-              modo === 'antiguos' ? colors.primary : colors.background,
+            fontFamily: 'Montserrat-SemiBold',
+            color: colors.primary,
           }}
-          onPress={() => setModo('antiguos')}
-          uppercase={false}
         >
-          Antiguos
-        </Button>
+          Monto total a dividir:
+        </Text>
+        <View style={style.montoContainer}>
+          <Text
+            style={{
+              fontFamily: 'Montserrat-Bold',
+              fontSize: 24,
+              color: colors.primary,
+            }}
+          >
+            S/.
+          </Text>
+          <TextInput
+            style={style.monto}
+            value={monto}
+            onChangeText={(monto) => setMonto(monto)}
+            placeholder="0.00"
+            keyboardType="numeric"
+          />
+        </View>
       </View>
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => {
-          return (
-            <List.Item
-              left={() => <List.Icon icon="account" />}
-              style={{ ...style.listItem, borderBottomColor: colors.primary }}
-              title={item}
-              titleStyle={{ fontSize: 18, color: colors.text }}
-              description="Para el taxi"
-              descriptionStyle={{ fontSize: 18, color: colors.text }}
-            />
-          );
-        }}
-      />
+      <View>
+        <Text
+          style={{
+            fontFamily: 'Montserrat-SemiBold',
+            color: colors.primary,
+          }}
+        >
+          Monto total a dividir:
+        </Text>
+        <View style={style.mensajeContainer}>
+          <MaterialCommunityIcons
+            name="email"
+            size={30}
+            color="black"
+            color={colors.primary}
+          />
+
+          <TextInput
+            theme={{ roundness: 0 }}
+            style={style.mensaje}
+            value={mensaje}
+            onChangeText={(mensaje) => setMensaje(mensaje)}
+            placeholder="Escriba un mensaje"
+          />
+        </View>
+      </View>
+      <Button
+        style={style.button}
+        uppercase={false}
+        mode="contained"
+        onPress={dividirCuenta}
+      >
+        Dividir
+      </Button>
     </View>
   );
 };
 
 const style = StyleSheet.create({
-  listItem: {
-    borderBottomWidth: 1,
+  container: {
+    paddingTop: 30,
+    flex: 1,
+    alignItems: 'center',
   },
-  buttonsContainer: {
+  mensajeContainer: {
     flexDirection: 'row',
+    width: '70%',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#00ADB5',
+  },
+  montoContainer: {
+    flexDirection: 'row',
+    width: '70%',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: '#00ADB5',
+    marginBottom: 20,
+  },
+  mensaje: {
+    fontFamily: 'Montserrat-Regular',
+    flex: 1,
+    textAlign: 'center',
+    marginRight: '10%',
+    fontSize: 18,
+  },
+  monto: {
+    fontFamily: 'Montserrat-SemiBold',
+    flex: 1,
+    textAlign: 'center',
+    marginRight: '10%',
+    fontSize: 24,
+  },
+  touchable: {
+    marginTop: 30,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 50,
+    width: '90%',
+    marginVertical: 5,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  image: {
+    marginHorizontal: 10,
+  },
+  button: {
+    marginTop: 40,
+    width: '60%',
     justifyContent: 'center',
-    borderBottomWidth: 2,
-  },
-  proximos: {
-    flex: 0.5,
-  },
-  antiguos: {
-    flex: 0.5,
   },
 });
 
