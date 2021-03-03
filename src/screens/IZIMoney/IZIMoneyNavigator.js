@@ -17,6 +17,7 @@ import Dividir from './DividirCuenta/Dividir';
 import PagosPendientes from './PagosPendientes/PagosPendientes';
 import PagarGasto from './PagosPendientes/PagarGasto';
 import PagoExitoso from './PagosPendientes/PagoExitoso';
+import ParticipantesCuenta from './DividirCuenta/ParticipantesCuenta';
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -56,6 +57,7 @@ const IZIMoneyNavigator = () => {
       <Stack.Screen name="Solicitud enviada" component={SolicitudEnviada} />
       <Stack.Screen name="Dividir cuenta" component={DividirCuenta} />
       <Stack.Screen name="Dividir" component={Dividir} />
+      <Stack.Screen name="Participantes" component={ParticipantesCuenta} />
       <Stack.Screen name="Pagos pendientes" component={PagosPendientes} />
       <Stack.Screen name="Pagar gasto" component={PagarGasto} />
       <Stack.Screen name="Pago exitoso" component={PagoExitoso} />

@@ -21,7 +21,11 @@ const DividirCuenta = ({ navigation }) => {
   };
   return (
     <View style={style.container}>
-      <TouchableOpacity style={style.touchable} activeOpacity={0.75}>
+      <TouchableOpacity
+        style={style.touchable}
+        activeOpacity={0.75}
+        onPress={() => navigation.navigate('Participantes')}
+      >
         <Text
           style={{
             flexGrow: 0.5,
@@ -95,7 +99,7 @@ const DividirCuenta = ({ navigation }) => {
             color: colors.primary,
           }}
         >
-          Monto total a dividir:
+          ¿Para qué es?
         </Text>
         <View style={style.mensajeContainer}>
           <MaterialCommunityIcons
@@ -181,7 +185,7 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
   },
   button: {
-    marginTop: 40,
+    marginTop: 160,
     width: '60%',
     justifyContent: 'center',
   },
