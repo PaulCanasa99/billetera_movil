@@ -11,6 +11,7 @@ import { Context } from '../../context/Context';
 
 const CrearEvento = ({ navigation }) => {
   const { colors } = useTheme();
+  const [modo, setModo] = useState('publico');
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [precio, setPrecio] = useState();
@@ -58,13 +59,6 @@ const CrearEvento = ({ navigation }) => {
   return (
     <ScrollView>
       <View style={style.container}>
-        <Image
-          style={style.imagen}
-          source={{
-            uri:
-              'https://www.bbva.com/wp-content/uploads/2017/08/bbva-balon-futbol-2017-08-11-1024x622.jpg',
-          }}
-        />
         <View style={style.inputContainer}>
           <Text
             style={{ fontFamily: 'Montserrat-SemiBold', color: colors.primary }}
@@ -144,6 +138,38 @@ const CrearEvento = ({ navigation }) => {
             minimumDate={new Date()}
           />
         )}
+        <View style={{ ...style.opciones, borderColor: colors.primary }}>
+          <Button
+            theme={{ roundness: 0 }}
+            color={modo === 'publico' ? 'white' : colors.text}
+            compact={true}
+            style={{
+              ...style.opcion,
+              backgroundColor:
+                modo === 'publico' ? colors.primary : colors.background,
+            }}
+            uppercase={false}
+            labelStyle={{ fontSize: 14, marginVertical: 5 }}
+            onPress={() => setModo('publico')}
+          >
+            Público
+          </Button>
+          <Button
+            theme={{ roundness: 0 }}
+            color={modo === 'privado' ? 'white' : colors.text}
+            compact={true}
+            style={{
+              ...style.opcion,
+              backgroundColor:
+                modo === 'privado' ? colors.primary : colors.background,
+            }}
+            uppercase={false}
+            labelStyle={{ fontSize: 14, marginVertical: 5 }}
+            onPress={() => setModo('privado')}
+          >
+            Privado
+          </Button>
+        </View>
         <Button
           style={style.button}
           uppercase={false}
@@ -159,12 +185,13 @@ const CrearEvento = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 30,
     alignItems: 'center',
   },
   button: {
     width: '60%',
     justifyContent: 'center',
-    marginVertical: 20,
+    marginVertical: 40,
   },
   date: {
     borderBottomColor: '#00ADB5',
@@ -185,6 +212,13 @@ const style = StyleSheet.create({
     backgroundColor: '#EEEEEE',
     borderRadius: 10,
     marginBottom: 25,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
   imagen: {
     width: '100%',
@@ -194,6 +228,16 @@ const style = StyleSheet.create({
   },
   fecha: {
     flexDirection: 'row',
+  },
+  opciones: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    borderWidth: 1,
+    width: '70%',
+  },
+  opcion: {
+    flex: 1,
   },
 });
 

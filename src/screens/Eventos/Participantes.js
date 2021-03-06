@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Button, useTheme, List } from 'react-native-paper';
+import { Button, useTheme, List, Searchbar, Divider } from 'react-native-paper';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
@@ -7,12 +7,14 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Context } from '../../context/Context';
 
-const TusEventos = ({ navigation }) => {
+const Participantes = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
-  const [modo, setModo] = useState('proximos');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [modo, setModo] = useState('asistentes');
   const { colors } = useTheme();
   const [eventos, setEventos] = useState([]);
   const { usuario } = useContext(Context);
+  const onChangeSearch = (query) => setSearchQuery(query);
 
   useEffect(() => {
     const subscriber = firestore()
@@ -44,39 +46,45 @@ const TusEventos = ({ navigation }) => {
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 20 }}
-          color={modo === 'proximos' ? 'white' : colors.text}
+          color={modo === 'asistentes' ? 'white' : colors.text}
           style={{
             ...style.opcion,
             backgroundColor:
-              modo === 'proximos' ? colors.primary : colors.background,
+              modo === 'asistentes' ? colors.primary : colors.background,
           }}
           uppercase={false}
-          onPress={() => setModo('proximos')}
+          onPress={() => setModo('asistentes')}
         >
-          Próximos
+          Asistentes
         </Button>
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 20 }}
-          color={modo === 'antiguos' ? 'white' : colors.text}
+          color={modo === 'invitados' ? 'white' : colors.text}
           style={{
             ...style.opcion,
             backgroundColor:
-              modo === 'antiguos' ? colors.primary : colors.background,
+              modo === 'invitados' ? colors.primary : colors.background,
           }}
           uppercase={false}
-          onPress={() => setModo('antiguos')}
+          onPress={() => setModo('invitados')}
         >
-          Antiguos
+          Invitados
         </Button>
       </View>
+      <Searchbar
+        style={style.searchBar}
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchQuery}
+      />
+      <Divider style={{ height: 1, backgroundColor: colors.primary }}></Divider>
       <FlatList
         data={eventos}
         renderItem={({ item }) => {
           return (
             <List.Item
               left={() => <List.Icon icon="account" />}
-              style={{ ...style.listItem, borderBottomColor: colors.primary }}
               title={item.nombre}
               titleStyle={{ fontSize: 18, color: colors.text }}
               description={format(
@@ -106,9 +114,6 @@ const TusEventos = ({ navigation }) => {
 };
 
 const style = StyleSheet.create({
-  listItem: {
-    borderBottomWidth: 1,
-  },
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -117,6 +122,12 @@ const style = StyleSheet.create({
   opcion: {
     flex: 1,
   },
+  searchBar: {
+    backgroundColor: 'white',
+    width: '95%',
+    alignSelf: 'center',
+    marginVertical: 10,
+  },
 });
 
-export default TusEventos;
+export default Participantes;

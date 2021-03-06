@@ -8,7 +8,6 @@ const PagosPendientes = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [modo, setModo] = useState('debes');
   const { colors } = useTheme();
-  const [eventos, setEventos] = useState([]);
   const data = [0, 1, 2];
   return (
     <View style={style.container}>

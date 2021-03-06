@@ -140,9 +140,6 @@ const style = StyleSheet.create({
     marginBottom: 60,
     marginTop: 30,
   },
-  button: {
-    marginTop: 0,
-  },
   monto: {
     fontFamily: 'Montserrat-SemiBold',
     flex: 1,
