@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Button, useTheme, Text } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -35,7 +35,9 @@ const Evento = ({ navigation, route }) => {
             {`S/. ${precio.toFixed(2)}`}
           </Text>
         </View>
-        <View
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => navigation.navigate('Participantes')}
           style={{
             ...style.precioContainer,
             borderBottomColor: colors.primary,
@@ -68,7 +70,7 @@ const Evento = ({ navigation, route }) => {
               size={24}
             />
           </View>
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             ...style.precioContainer,

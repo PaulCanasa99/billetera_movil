@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Button, useTheme, Text, Divider } from 'react-native-paper';
+import { Button, useTheme, Text, Divider, List } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
 import { Context } from '../../context/Context';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -9,7 +10,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = ({ navigation }) => {
+  const data = [0, 1, 2];
   const { colors } = useTheme();
+  const [modo, setModo] = useState('debes');
   const { usuario, setUsuario } = useContext(Context);
   useEffect(() => {
     const subscriber = firestore()
@@ -23,7 +26,7 @@ const Home = ({ navigation }) => {
   }, []);
   return (
     <View style={style.container}>
-      <Text style={style.greeting}>{`Hola salvaje`}</Text>
+      <Text style={style.greeting}>{`Hola ${usuario.nombres}`}</Text>
       <View style={style.card}>
         <View style={{ ...style.balance, borderBottomColor: colors.primary }}>
           <Text style={{ fontSize: 18 }}>Tu balance:</Text>
@@ -38,12 +41,7 @@ const Home = ({ navigation }) => {
         <View style={style.buttonsContainer}>
           <View style={style.buttonContainer}>
             <Text>Solicitar</Text>
-            <TouchableOpacity
-              activeOpacity={0.5}
-              onPress={() => {
-                console.log('gaea');
-              }}
-            >
+            <TouchableOpacity activeOpacity={0.5}>
               <Image
                 source={{
                   uri:
@@ -101,21 +99,30 @@ const Home = ({ navigation }) => {
       </Text>
       <View style={{ ...style.opciones, borderColor: colors.primary }}>
         <Button
-          color="white"
+          theme={{ roundness: 0 }}
+          labelStyle={{ fontSize: 14, marginVertical: 5 }}
+          color={modo === 'debes' ? 'white' : colors.text}
           style={{
             ...style.debes,
-            backgroundColor: colors.primary,
+            backgroundColor:
+              modo === 'debes' ? colors.primary : colors.background,
           }}
+          onPress={() => setModo('debes')}
           uppercase={false}
-          labelStyle={{ fontSize: 14 }}
         >
           Debes
         </Button>
         <Button
-          color={colors.text}
-          style={style.teDeben}
+          theme={{ roundness: 0 }}
+          labelStyle={{ fontSize: 14, marginVertical: 5 }}
+          color={modo === 'teDeben' ? 'white' : colors.text}
+          style={{
+            ...style.debes,
+            backgroundColor:
+              modo === 'teDeben' ? colors.primary : colors.background,
+          }}
+          onPress={() => setModo('teDeben')}
           uppercase={false}
-          labelStyle={{ fontSize: 14 }}
         >
           Te deben
         </Button>
@@ -125,32 +132,28 @@ const Home = ({ navigation }) => {
           backgroundColor: colors.primary,
           height: 2,
           width: '100%',
-          marginVertical: 15,
+          marginTop: 15,
         }}
       ></Divider>
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={() =>
-          navigation.navigate('EnviarDinero', { name: 'Enviar dinero' })
-        }
-      >
-        Enviar dinero
-      </Button>
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={() =>
-          auth()
-            .signOut()
-            .then(() => console.log('User signed out!'))
-        }
-        color={colors.accent}
-      >
-        Depositar
-      </Button>
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
+          return (
+            <List.Item
+              left={() => <List.Icon icon="account" />}
+              right={() => <Text style={style.monto}>S/. 25.00</Text>}
+              style={{
+                paddingHorizontal: 10,
+              }}
+              title="Paul Canasa"
+              titleStyle={{ fontSize: 18, color: colors.text }}
+              description="Para el taxi"
+              descriptionStyle={{ fontSize: 14, color: colors.text }}
+            />
+          );
+        }}
+      />
     </View>
   );
 };
@@ -158,16 +161,17 @@ const Home = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     paddingTop: 20,
   },
   greeting: {
+    alignSelf: 'center',
     fontSize: 32,
     width: '80%',
     textAlign: 'center',
     marginBottom: 20,
   },
   card: {
+    alignSelf: 'center',
     alignItems: 'center',
     width: '90%',
     borderRadius: 10,
@@ -193,6 +197,7 @@ const style = StyleSheet.create({
     width: '95%',
   },
   opciones: {
+    alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
@@ -206,22 +211,21 @@ const style = StyleSheet.create({
     justifyContent: 'center',
   },
   debes: {
-    borderRadius: 0,
     flex: 1,
-    height: '100%',
-    justifyContent: 'center',
   },
   teDeben: {
-    borderRadius: 0,
     flex: 1,
-    height: '100%',
-    justifyContent: 'center',
   },
   image: {
     width: 50,
     height: 50,
     alignSelf: 'center',
     marginVertical: 10,
+  },
+  monto: {
+    alignSelf: 'center',
+    fontFamily: 'Montserrat-Bold',
+    marginRight: 20,
   },
 });
 
