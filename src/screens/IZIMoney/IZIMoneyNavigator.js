@@ -6,7 +6,8 @@ import { StyleSheet } from 'react-native';
 import EnviarDinero from './EnviarDinero/EnviarDinero';
 import RealizarEnvio from './EnviarDinero/RealizarEnvio';
 import EnvioExitoso from './EnviarDinero/EnvioExitoso';
-
+import RetirarDinero from './RetirarDinero/RetirarDinero';
+import RetirarExitoso from './RetirarDinero/RetirarExitoso';
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
   return (
@@ -37,6 +38,8 @@ const IZIMoneyNavigator = () => {
       <Stack.Screen name="Enviar dinero" component={EnviarDinero} />
       <Stack.Screen name="Realizar envio" component={RealizarEnvio} />
       <Stack.Screen name="Envio exitoso" component={EnvioExitoso} />
+      <Stack.Screen name="Retirar dinero" component={RetirarDinero} />
+      <Stack.Screen name="Retirar exitoso" component={RetirarExitoso} />
     </Stack.Navigator>
   );
 };
