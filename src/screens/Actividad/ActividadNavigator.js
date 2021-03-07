@@ -5,6 +5,7 @@ import Detalle from './Detalle';
 import CustomNavigationBar from '../../components/CustomNavigationBar';
 import { Appbar, useTheme } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import QRCamera from './QRCamera';
 
 const ActividadNavigator = () => {
   const Stack = createStackNavigator();
@@ -29,8 +30,10 @@ const ActividadNavigator = () => {
         },
       }}
     >
+      <Stack.Screen name="QRCamera" component={QRCamera} />
       <Stack.Screen name="Tus movimientos" component={Activity} />
       <Stack.Screen name="Detalle" component={Detalle} />
+      
     </Stack.Navigator>
   );
 };
