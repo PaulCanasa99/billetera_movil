@@ -9,7 +9,7 @@ const RecargarExitoso = ({ navigation, route}) => {
   const { colors } = useTheme();
   const todayDate = new Date();
   const confirm = () => {
-    navigation.navigate("Retirar dinero");
+    navigation.navigate("Recargar dinero");
   };
   return (
     <View style={style.container}>
