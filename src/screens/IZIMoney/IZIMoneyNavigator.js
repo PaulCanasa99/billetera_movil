@@ -20,6 +20,8 @@ import PagoExitoso from './PagosPendientes/PagoExitoso';
 import ParticipantesCuenta from './DividirCuenta/ParticipantesCuenta';
 import RetirarDinero from './RetirarDinero/RetirarDinero';
 import RetirarExitoso from './RetirarDinero/RetirarExitoso';
+import RecargarDinero from './RecargarDinero/RecargarDinero';
+import RecargarExitoso from './RecargarDinero/RecargarExitoso';
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -63,8 +65,10 @@ const IZIMoneyNavigator = () => {
       <Stack.Screen name="Pagos pendientes" component={PagosPendientes} />
       <Stack.Screen name="Pagar gasto" component={PagarGasto} />
       <Stack.Screen name="Pago exitoso" component={PagoExitoso} />
-	  <Stack.Screen name="Retirar dinero" component={RetirarDinero} />
+	    <Stack.Screen name="Retirar dinero" component={RetirarDinero} />
       <Stack.Screen name="Retirar exitoso" component={RetirarExitoso} />
+      <Stack.Screen name="Recargar dinero" component={RecargarDinero} />
+      <Stack.Screen name="Recargar exitoso" component={RecargarExitoso} />
     </Stack.Navigator>
   );
 };

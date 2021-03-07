@@ -100,7 +100,8 @@ const IZIMoney = ({ navigation }) => {
           <Text>Pagos Pendientes</Text>
         </View>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75} onPress={() => {
+              navigation.navigate('Recargar dinero');}}>
             <Image
               source={{
                 uri:
@@ -114,7 +115,9 @@ const IZIMoney = ({ navigation }) => {
       </View>
       <View style={style.row}>
         <View style={style.accionContainer}>
-          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}>
+          <TouchableOpacity style={style.imageContainer} activeOpacity={0.75}  onPress={() => {
+              navigation.navigate('Retirar dinero');
+            }}>
             <Image
               source={{
                 uri:
