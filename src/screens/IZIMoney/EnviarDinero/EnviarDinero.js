@@ -31,14 +31,15 @@ const EnviarDinero = ({ navigation }) => {
             console.log('efe');
             throw err;
           } else {
-            setContacts(data);
+            let listSort = data.sort((a,b)=> a.givenName>b.givenName)
+            setContacts(listSort);   
           }
         });
       });
     }
   }, []);
   const handlePress = (phoneNumber) => {
-    navigation.navigate('Realizar envio', {
+    navigation.navigate('RealizarEnvio', {
       name: 'Realizar envío',
       phoneNumber: phoneNumber,
     });
@@ -56,8 +57,9 @@ const EnviarDinero = ({ navigation }) => {
         {contacts &&
           contacts.map((contact) => {
             return (
+              contact.phoneNumbers[0] && 
               <List.Item
-                key={contact.phoneNumbers[0].number}
+                key={contact.recordID}
                 onPress={() => handlePress(contact.phoneNumbers[0].number)}
                 style={style.listItem}
                 title={`${contact.givenName} ${contact.familyName}`}
