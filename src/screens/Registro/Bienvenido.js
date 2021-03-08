@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import { useTheme, Text, Button } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth from '@react-native-firebase/auth';
-import Verificacion from './Verificacion';
+import React, { useState } from "react";
+import { View, StyleSheet } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import { useTheme, Text, Button } from "react-native-paper";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import auth from "@react-native-firebase/auth";
+import Verificacion from "./Verificacion";
 
 let backgroundColor;
 const Bienvenido = ({ navigation }) => {
@@ -14,12 +14,10 @@ const Bienvenido = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState();
   // Handle the button press
   const convertirNumero = (num) => {
-    const primero = Math.trunc(num / 1000000);
-    const segundo = Math.trunc((num / 1000) % 1000);
-    const tercero = Math.trunc(num % 1000);
-    console.log(`+51 ${primero} ${segundo} ${tercero}`);
-    return `+51 ${primero} ${segundo} ${tercero}`;
+    console.log(`+51 ${num}`);
+    return `+51 ${num}`;
   };
+
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
     setConfirm(confirmation);
@@ -28,13 +26,13 @@ const Bienvenido = ({ navigation }) => {
   async function confirmCode(code) {
     try {
       await confirm.confirm(code);
-      console.log('codigo correcto');
-      navigation.navigate('Registro', {
-        name: 'Registro',
+      console.log("codigo correcto");
+      navigation.navigate("Registro", {
+        name: "Registro",
         phoneNumber: `+51${phoneNumber}`,
       });
     } catch (error) {
-      console.log('Invalid code.');
+      console.log("Invalid code.");
     }
   }
   if (!confirm) {
@@ -76,32 +74,32 @@ const Bienvenido = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   titulo: {
     fontSize: 36,
-    textAlign: 'center',
+    textAlign: "center",
   },
   texto: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 80,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: '70%',
+    flexDirection: "row",
+    alignItems: "center",
+    width: "70%",
     borderRadius: 25,
-    backgroundColor: '#EEEEEE',
+    backgroundColor: "#EEEEEE",
     marginTop: 20,
   },
   prefix: {
     marginHorizontal: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   button: {
-    width: '70%',
+    width: "70%",
     borderRadius: 10,
     marginTop: 50,
     marginBottom: 50,
