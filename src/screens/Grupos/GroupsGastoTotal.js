@@ -21,7 +21,7 @@ const GroupsGastoTotal = ({ navigation, route }) => {
   const gastos = 100.0;
 
   const onAnadir = () => {
-    navigation.navigate("Groups anadir");
+    navigation.navigate("Añadir");
   };
   return (
     <View style={style.container}>

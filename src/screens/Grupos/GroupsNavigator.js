@@ -1,11 +1,11 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import Groups from './Groups';
-import { Appbar } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import GroupsGastoTotal from './GroupsGastoTotal';
-import GroupsAnadirGasto from './GroupsAnadirGasto';
-import Dividir from '../IZIMoney/DividirCuenta/Dividir';
+import * as React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import Groups from "./Groups";
+import { Appbar } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import GroupsGastoTotal from "./GroupsGastoTotal";
+import GroupsAnadirGasto from "./GroupsAnadirGasto";
+import Dividir from "../IZIMoney/DividirCuenta/Dividir";
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -19,7 +19,7 @@ const IZIMoneyNavigator = () => {
                 <Appbar.BackAction onPress={navigation.goBack} />
               ) : null}
               <Appbar.Content
-                titleStyle={{ fontFamily: 'Montserrat-SemiBold' }}
+                titleStyle={{ fontFamily: "Montserrat-SemiBold" }}
                 style={style.appTitle}
                 title={scene.route.name}
               />
@@ -29,19 +29,19 @@ const IZIMoneyNavigator = () => {
         },
       }}
     >
-      <Stack.Screen name="Groups" component={Groups} />
-      <Stack.Screen name="Groups gasto" component={GroupsGastoTotal} />
-      <Stack.Screen name="Groups anadir" component={GroupsAnadirGasto} />
+      <Stack.Screen name="Grupos" component={Groups} />
+      <Stack.Screen name="Gastos" component={GroupsGastoTotal} />
+      <Stack.Screen name="Añadir" component={GroupsAnadirGasto} />
       <Stack.Screen name="Dividir cuenta" component={Dividir} />
     </Stack.Navigator>
   );
 };
 const style = StyleSheet.create({
   appBar: {
-    backgroundColor: '#222831',
+    backgroundColor: "#222831",
   },
   appTitle: {
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 export default IZIMoneyNavigator;
