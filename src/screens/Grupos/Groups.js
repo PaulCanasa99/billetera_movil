@@ -31,7 +31,7 @@ const Groups = ({ navigation, route }) => {
         renderItem={({ item }) => {
           return (
             <List.Item
-            left={() => <List.Icon icon="account" />}
+            left={() => <List.Icon icon="account" color={colors.primary} />}
             onPress={() => navigation.navigate('Groups gasto')}
             style={{ ...style.listItem, borderBottomColor: colors.primary }}
             title={item}

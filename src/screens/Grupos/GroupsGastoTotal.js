@@ -86,7 +86,7 @@ const GroupsGastoTotal = ({ navigation, route }) => {
         renderItem={({ item }) => {
           return (
             <List.Item
-              left={() => <List.Icon icon="account" />}
+              left={() => <List.Icon icon="account" color={colors.primary} />}
               right={() => <Text style={style.monto}>S/. {item.amount}</Text>}
               style={{
                 paddingHorizontal: 10,
