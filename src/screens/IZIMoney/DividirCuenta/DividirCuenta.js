@@ -29,7 +29,7 @@ const DividirCuenta = ({ navigation }) => {
         <TouchableOpacity
           style={style.touchable}
           activeOpacity={0.75}
-          onPress={() => navigation.navigate("Participantes")}
+          onPress={() => navigation.navigate("Participantes Cuenta")}
         >
           <Text
             style={{
