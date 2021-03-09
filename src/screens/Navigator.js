@@ -1,11 +1,11 @@
-import * as React from 'react';
-import InicioNavigator from './Inicio/InicioNavigator';
-import EventosNavigator from './Eventos/EventosNavigator';
-import GroupsNavigator from './Grupos/GroupsNavigator';
-import ActividadNavigator from './Actividad/ActividadNavigator';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IZIMoneyNavigator from './IZIMoney/IZIMoneyNavigator';
+import * as React from "react";
+import InicioNavigator from "./Inicio/InicioNavigator";
+import EventosNavigator from "./Eventos/EventosNavigator";
+import GroupsNavigator from "./Grupos/GroupsNavigator";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import IZIMoneyNavigator from "./IZIMoney/IZIMoneyNavigator";
+import PerfilNavigator from "./Perfil/PerfilNavigator";
 
 const Navigator = () => {
   const Tab = createMaterialBottomTabNavigator();
@@ -20,7 +20,7 @@ const Navigator = () => {
         name="Home"
         component={InicioNavigator}
         options={{
-          tabBarLabel: 'Inicio',
+          tabBarLabel: "Inicio",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={22} />
           ),
@@ -30,7 +30,7 @@ const Navigator = () => {
         name="Groups"
         component={GroupsNavigator}
         options={{
-          tabBarLabel: 'Grupos',
+          tabBarLabel: "Grupos",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="account-group"
@@ -44,7 +44,7 @@ const Navigator = () => {
         name="IZIMoney"
         component={IZIMoneyNavigator}
         options={{
-          tabBarLabel: 'IZIMoney',
+          tabBarLabel: "IZIMoney",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="view-dashboard"
@@ -58,7 +58,7 @@ const Navigator = () => {
         name="EventosNavigator"
         component={EventosNavigator}
         options={{
-          tabBarLabel: 'Eventos',
+          tabBarLabel: "Eventos",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="calendar-blank"
@@ -69,10 +69,10 @@ const Navigator = () => {
         }}
       />
       <Tab.Screen
-        name="Activity"
-        component={ActividadNavigator}
+        name="Perfil"
+        component={PerfilNavigator}
         options={{
-          tabBarLabel: 'Actividad',
+          tabBarLabel: "Perfil",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="account-circle"

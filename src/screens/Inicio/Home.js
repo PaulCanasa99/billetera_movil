@@ -1,22 +1,22 @@
-import React, { useContext, useState } from 'react';
-import { useEffect } from 'react';
-import { View, StyleSheet, Image } from 'react-native';
-import { Button, useTheme, Text, Divider, List } from 'react-native-paper';
-import { FlatList } from 'react-native-gesture-handler';
-import { Context } from '../../context/Context';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useContext, useState } from "react";
+import { useEffect } from "react";
+import { View, StyleSheet, Image } from "react-native";
+import { Button, useTheme, Text, Divider, List } from "react-native-paper";
+import { FlatList } from "react-native-gesture-handler";
+import { Context } from "../../context/Context";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const Home = ({ navigation }) => {
   const data = [0, 1, 2];
   const { colors } = useTheme();
-  const [modo, setModo] = useState('debes');
+  const [modo, setModo] = useState("debes");
   const { usuario, setUsuario } = useContext(Context);
   useEffect(() => {
     const subscriber = firestore()
-      .collection('Usuarios')
+      .collection("Usuarios")
       .doc(usuario.userId)
       .onSnapshot((documentSnapshot) => {
         setUsuario({ ...usuario, saldo: documentSnapshot.data().saldo });
@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
           <Text
             style={{
               color: colors.primary,
-              fontFamily: 'Montserrat-SemiBold',
+              fontFamily: "Montserrat-SemiBold",
               fontSize: 18,
             }}
           >{`S/. ${usuario.saldo.toFixed(2)}`}</Text>
@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/request-money.png?alt=media&token=f9bc444f-7fea-4627-9b33-5ec5899b1343",
                 }}
                 style={style.image}
               />
@@ -56,13 +56,13 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                console.log('gaea');
+                console.log("gaea");
               }}
             >
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/Split_Bill-512.png?alt=media&token=83b15474-2697-4294-b55a-341f196e3cc8',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/Split_Bill-512.png?alt=media&token=83b15474-2697-4294-b55a-341f196e3cc8",
                 }}
                 style={style.image}
               />
@@ -73,13 +73,13 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                navigation.navigate('EnviarDinero', { name: 'Enviar dinero' });
+                navigation.navigate("EnviarDinero", { name: "Enviar dinero" });
               }}
             >
               <Image
                 source={{
                   uri:
-                    'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-transfer.png?alt=media&token=cad6b729-6592-44fb-9c88-08e7605f06ee',
+                    "https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/money-transfer.png?alt=media&token=cad6b729-6592-44fb-9c88-08e7605f06ee",
                 }}
                 style={style.image}
               />
@@ -89,10 +89,10 @@ const Home = ({ navigation }) => {
       </View>
       <Text
         style={{
-          fontFamily: 'Montserrat-SemiBold',
+          fontFamily: "Montserrat-SemiBold",
           fontSize: 24,
           margin: 25,
-          alignSelf: 'flex-start',
+          alignSelf: "flex-start",
         }}
       >
         Pagos pendientes
@@ -101,13 +101,13 @@ const Home = ({ navigation }) => {
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 14, marginVertical: 5 }}
-          color={modo === 'debes' ? 'white' : colors.text}
+          color={modo === "debes" ? "white" : colors.text}
           style={{
             ...style.debes,
             backgroundColor:
-              modo === 'debes' ? colors.primary : colors.background,
+              modo === "debes" ? colors.primary : colors.background,
           }}
-          onPress={() => setModo('debes')}
+          onPress={() => setModo("debes")}
           uppercase={false}
         >
           Debes
@@ -115,13 +115,13 @@ const Home = ({ navigation }) => {
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 14, marginVertical: 5 }}
-          color={modo === 'teDeben' ? 'white' : colors.text}
+          color={modo === "teDeben" ? "white" : colors.text}
           style={{
             ...style.debes,
             backgroundColor:
-              modo === 'teDeben' ? colors.primary : colors.background,
+              modo === "teDeben" ? colors.primary : colors.background,
           }}
-          onPress={() => setModo('teDeben')}
+          onPress={() => setModo("teDeben")}
           uppercase={false}
         >
           Te deben
@@ -131,7 +131,7 @@ const Home = ({ navigation }) => {
         style={{
           backgroundColor: colors.primary,
           height: 2,
-          width: '100%',
+          width: "100%",
           marginTop: 15,
         }}
       ></Divider>
@@ -164,51 +164,51 @@ const style = StyleSheet.create({
     paddingTop: 20,
   },
   greeting: {
-    alignSelf: 'center',
+    alignSelf: "center",
     fontSize: 32,
-    width: '80%',
-    textAlign: 'center',
+    width: "80%",
+    textAlign: "center",
     marginBottom: 20,
   },
   card: {
-    alignSelf: 'center',
-    alignItems: 'center',
-    width: '90%',
+    alignSelf: "center",
+    alignItems: "center",
+    width: "90%",
     borderRadius: 10,
     padding: 10,
     elevation: 5,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor: "white",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
   },
   balance: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '95%',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "95%",
     borderBottomWidth: 1.5,
     paddingBottom: 10,
   },
   buttonsContainer: {
     marginTop: 25,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '95%',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "95%",
   },
   opciones: {
-    alignSelf: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    alignSelf: "center",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
     borderWidth: 1,
-    width: '60%',
+    width: "60%",
     height: 30,
   },
   button: {
-    width: '60%',
+    width: "60%",
     marginTop: 50,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   debes: {
     flex: 1,
@@ -219,12 +219,12 @@ const style = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 10,
   },
   monto: {
-    alignSelf: 'center',
-    fontFamily: 'Montserrat-Bold',
+    alignSelf: "center",
+    fontFamily: "Montserrat-Bold",
     marginRight: 20,
   },
 });
