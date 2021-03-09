@@ -7,10 +7,18 @@ import Icon from "react-native-vector-icons/Ionicons";
 import Perfil from "./Perfil";
 import Activity from "../Actividad/Activity";
 import TarjetaAsociada from "./TarjetasAsociadas";
+import { Context } from "../../context/Context";
 
 const PerfilNavigator = () => {
   const Stack = createStackNavigator();
   const { colors } = useTheme();
+  const { setVisible } = React.useContext(Context);
+  const onPress = () => {
+    setVisible({
+      flag: true,
+      message: "Dede de ingresar un monto valido",
+    });
+  };
   return (
     <Stack.Navigator
       screenOptions={{
@@ -30,7 +38,7 @@ const PerfilNavigator = () => {
                   icon="plus"
                   size={35}
                   onPress={() => {
-                    navigation.navigate("Mis tarjetas");
+                    onPress();
                   }}
                 />
               ) : (
@@ -56,4 +64,5 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
 });
+
 export default PerfilNavigator;

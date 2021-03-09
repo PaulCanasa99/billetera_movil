@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import { Avatar, useTheme, Text, Button } from "react-native-paper";
+import { Context } from "../../context/Context";
+import ValidateDialog from "../IZIMoney/RetirarDinero/ValidateDialog";
 
 const Perfil = () => {
   const { colors } = useTheme();
+
+  const { visible, setVisible } = useContext(Context);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -43,6 +48,7 @@ const Perfil = () => {
           </Button>
         </View>
       </View>
+      <ValidateDialog visible={visible} setVisible={setVisible} />
     </SafeAreaView>
   );
 };

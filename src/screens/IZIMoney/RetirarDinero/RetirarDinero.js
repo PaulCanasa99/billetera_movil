@@ -4,65 +4,71 @@ import { TextInput } from "react-native-gesture-handler";
 import { Button, useTheme, Text } from "react-native-paper";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { LiteCreditCardInput } from "react-native-input-credit-card";
-import ValidateDialog from './ValidateDialog';
+import ValidateDialog from "./ValidateDialog";
 
-const RetirarDinero = ({navigation}) => {
+const RetirarDinero = ({ navigation }) => {
   const [amount, setAmount] = useState(0);
-  const [visible, setVisible] = useState({flag: false, message: ""});
+  const [visible, setVisible] = useState({ flag: false, message: "" });
   const [cardNumber, setCardNumber] = useState({
-    valid: false, 
-    values: { 
+    valid: false,
+    values: {
       number: "",
       expiry: "",
       cvc: "",
-      type: "", 
+      type: "",
       name: "",
       postalCode: "",
     },
-    status: {  
+    status: {
       number: "incomplete",
       expiry: "incomplete",
       cvc: "incomplete",
-      name: "incomplete", 
+      name: "incomplete",
       postalCode: "incomplete",
     },
   });
 
-  const onChange=(e)=>{
+  const onChange = (e) => {
     setCardNumber(e);
-  }
+  };
   const register = () => {
     console.log(cardNumber);
-    if(!cardNumber.valid || amount<=0){
-      setVisible({flag:true, message: amount<=0?"Dede de ingresar un monto valido":"Los datos ingresados de la tarjeta no son validos o estan vacios" });
+    if (!cardNumber.valid || amount <= 0) {
+      setVisible({
+        flag: true,
+        message:
+          amount <= 0
+            ? "Dede de ingresar un monto valido"
+            : "Los datos ingresados de la tarjeta no son validos o estan vacios",
+      });
       return;
     }
-    navigation.navigate('Retirar exitoso',{amount, cardNumber});
+    navigation.navigate("Retirar exitoso", { amount, cardNumber });
   };
 
   const { colors } = useTheme();
   return (
     <View style={style.container}>
-      
       <View style={style.montoContainer}>
-      
-         <Text
-            style={{
-              fontFamily: 'Montserrat-Bold',
-              fontSize: 24,
-              color: colors.primary,
-            }}
-           
-          > S/.</Text>
+        <Text
+          style={{
+            fontFamily: "Montserrat-Bold",
+            fontSize: 24,
+            color: colors.primary,
+          }}
+        >
+          {" "}
+          S/.
+        </Text>
         <TextInput
-            style={style.monto}
-            onChangeText={(amount) => setAmount(amount)}
-            placeholder="0.00"
-            keyboardType="numeric"
-          />
+          style={style.monto}
+          onChangeText={(amount) => setAmount(amount)}
+          placeholder="0.00"
+          keyboardType="numeric"
+        />
       </View>
       <View style={style.montoContainer}>
-      <MaterialCommunityIcons
+        <MaterialCommunityIcons
           name="credit-card-outline"
           size={25}
           color="black"
@@ -108,18 +114,18 @@ const style = StyleSheet.create({
     marginBottom: 45,
   },
   montoContainer: {
-    flexDirection: 'row',
-    width: '70%',
-    alignItems: 'center',
+    flexDirection: "row",
+    width: "70%",
+    alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: '#00ADB5',
+    borderColor: "#00ADB5",
     marginBottom: 25,
   },
   monto: {
-    fontFamily: 'Montserrat-SemiBold',
+    fontFamily: "Montserrat-SemiBold",
     flex: 1,
-    textAlign: 'center',
-    marginRight: '10%',
+    textAlign: "center",
+    marginRight: "10%",
     fontSize: 24,
   },
 });

@@ -1,24 +1,24 @@
-import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import "react-native-gesture-handler";
+import React, { useState } from "react";
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
-} from '@react-navigation/native';
+} from "@react-navigation/native";
 import {
   configureFonts,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
-} from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore';
-import Navigator from './src/screens/Navigator';
-import merge from 'deepmerge';
-import fontConfig from './src/utils/fontConfig';
-import { Context } from './src/context/Context';
-import RegistroNavigator from './src/screens/Registro/RegistroNavigator';
-import { useEffect } from 'react';
-import auth from '@react-native-firebase/auth';
+} from "react-native-paper";
+import firestore from "@react-native-firebase/firestore";
+import Navigator from "./src/screens/Navigator";
+import merge from "deepmerge";
+import fontConfig from "./src/utils/fontConfig";
+import { Context } from "./src/context/Context";
+import RegistroNavigator from "./src/screens/Registro/RegistroNavigator";
+import { useEffect } from "react";
+import auth from "@react-native-firebase/auth";
 
 const theme = {
   ...PaperDefaultTheme,
@@ -26,8 +26,8 @@ const theme = {
   fonts: configureFonts(fontConfig),
   colors: {
     ...PaperDefaultTheme.colors,
-    accent: '#EEEEEE',
-    surface: '#222831',
+    accent: "#EEEEEE",
+    surface: "#222831",
   },
 };
 
@@ -35,10 +35,10 @@ const MyTheme = {
   ...NavigationDefaultTheme,
   colors: {
     ...NavigationDefaultTheme.colors,
-    primary: '#00ADB5',
-    background: '#FFFFFF',
-    text: '#222831',
-    card: '#222831',
+    primary: "#00ADB5",
+    background: "#FFFFFF",
+    text: "#222831",
+    card: "#222831",
   },
 };
 const CombinedDefaultTheme = merge(theme, MyTheme);
@@ -48,13 +48,14 @@ const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
   const [usuario, setUsuario] = useState();
-  const [destination, setDestination] = useState('');
+  const [destination, setDestination] = useState("");
+  const [visible, setVisible] = useState({ flag: false, message: "" });
   const onAuthStateChanged = (user) => {
     setUser(user);
     if (user)
       firestore()
-        .collection('Usuarios')
-        .where('celular', '==', user.phoneNumber)
+        .collection("Usuarios")
+        .where("celular", "==", user.phoneNumber)
         .limit(1)
         .get()
         .then((querySnapshot) => {
@@ -77,7 +78,14 @@ const App = () => {
 
   return (
     <Context.Provider
-      value={{ usuario, setUsuario, destination, setDestination }}
+      value={{
+        usuario,
+        setUsuario,
+        destination,
+        setDestination,
+        visible,
+        setVisible,
+      }}
     >
       <PaperProvider theme={CombinedDefaultTheme}>
         <NavigationContainer theme={CombinedDefaultTheme}>
