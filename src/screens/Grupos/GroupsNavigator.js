@@ -3,6 +3,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Groups from './Groups';
 import { Appbar } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import GroupsGastoTotal from './GroupsGastoTotal';
+import GroupsAnadirGasto from './GroupsAnadirGasto';
+import Dividir from '../IZIMoney/DividirCuenta/Dividir';
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -27,6 +30,9 @@ const IZIMoneyNavigator = () => {
       }}
     >
       <Stack.Screen name="Groups" component={Groups} />
+      <Stack.Screen name="Groups gasto" component={GroupsGastoTotal} />
+      <Stack.Screen name="Groups anadir" component={GroupsAnadirGasto} />
+      <Stack.Screen name="Dividir cuenta" component={Dividir} />
     </Stack.Navigator>
   );
 };
