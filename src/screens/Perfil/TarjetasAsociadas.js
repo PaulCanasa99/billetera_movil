@@ -94,7 +94,7 @@ const TarjetaAsociada = () => {
               style={{
                 fontSize: 18,
                 color: "#fff",
-                fontFamily: "Montserrat-Bold",
+                fontFamily: "Montserrat-SemiBold",
               }}
             >
               Añadir nuevo medio de pago{" "}
