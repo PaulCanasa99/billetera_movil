@@ -7,7 +7,7 @@ import RouterDialog from "./RouterDialog";
 const Perfil = ({ navigation }) => {
   const { colors } = useTheme();
 
-  const { visible, setVisible } = useContext(Context);
+  const { visible, setVisible, usuario } = useContext(Context);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -23,7 +23,7 @@ const Perfil = ({ navigation }) => {
             <Text style={{ ...styles.title, color: colors.primary }}>
               Nombres:
             </Text>
-            <Text style={styles.text}>Ronaldo Romario</Text>
+            <Text style={styles.text}>{usuario.nombres}</Text>
           </View>
         </View>
         <View style={styles.card}>
@@ -31,7 +31,7 @@ const Perfil = ({ navigation }) => {
             <Text style={{ ...styles.title, color: colors.primary }}>
               Apellidos:
             </Text>
-            <Text style={styles.text}>Tunque Cahui</Text>
+            <Text style={styles.text}>{usuario.apellidos}</Text>
           </View>
         </View>
         <View style={styles.card}>
@@ -39,7 +39,7 @@ const Perfil = ({ navigation }) => {
             <Text style={{ ...styles.title, color: colors.primary }}>
               Correo electrónico:
             </Text>
-            <Text style={styles.text}>ronaldo.tunque@pucp.edu.pe</Text>
+            <Text style={styles.text}>{usuario.email}</Text>
           </View>
         </View>
         {/*<View style={styles.buttonContainer}>
