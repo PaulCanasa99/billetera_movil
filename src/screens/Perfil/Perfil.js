@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { StyleSheet, SafeAreaView, View } from "react-native";
 import { Avatar, useTheme, Text, Button } from "react-native-paper";
 import { Context } from "../../context/Context";
-import ValidateDialog from "../IZIMoney/RetirarDinero/ValidateDialog";
+import RouterDialog from "./RouterDialog";
 
-const Perfil = () => {
+const Perfil = ({ navigation }) => {
   const { colors } = useTheme();
 
   const { visible, setVisible } = useContext(Context);
@@ -42,13 +42,17 @@ const Perfil = () => {
             <Text style={styles.text}>ronaldo.tunque@pucp.edu.pe</Text>
           </View>
         </View>
-        <View style={styles.buttonContainer}>
+        {/*<View style={styles.buttonContainer}>
           <Button style={styles.button} mode="contained" uppercase={false}>
             Guardar
           </Button>
-        </View>
+        </View>*/}
       </View>
-      <ValidateDialog visible={visible} setVisible={setVisible} />
+      <RouterDialog
+        visible={visible}
+        setVisible={setVisible}
+        navigation={navigation}
+      />
     </SafeAreaView>
   );
 };

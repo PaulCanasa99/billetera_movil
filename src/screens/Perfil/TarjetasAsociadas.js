@@ -64,7 +64,12 @@ const TarjetaAsociada = () => {
                       color: colors.primary,
                     }}
                   >
-                    <Text style={{ color: colors.primary, fontWeight: "bold" }}>
+                    <Text
+                      style={{
+                        color: colors.primary,
+                        fontFamily: "Montserrat-Bold",
+                      }}
+                    >
                       {" "}
                       {item}
                     </Text>
@@ -85,7 +90,13 @@ const TarjetaAsociada = () => {
         </View>
         <View style={styles.buttonContainer}>
           <Button style={styles.button} mode="contained" uppercase={false}>
-            <Text style={{ fontSize: 21.5, color: "#fff", fontWeight: "bold" }}>
+            <Text
+              style={{
+                fontSize: 18,
+                color: "#fff",
+                fontFamily: "Montserrat-Bold",
+              }}
+            >
               Añadir nuevo medio de pago{" "}
               <Ionicons name="add-outline" size={20} color="#fff"></Ionicons>
             </Text>
@@ -119,12 +130,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   title: {
-    fontWeight: "bold",
     marginBottom: 10,
+    fontFamily: "Montserrat-Bold",
   },
   text: {
-    fontFamily: "HelveticaNeue",
-    color: "#52575D",
+    fontFamily: "Montserrat-Bold",
   },
   buttonContainer: {
     marginTop: 20,

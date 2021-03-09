@@ -6,6 +6,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const RouterDialog = ({
   visible = { flag: false, message: "" },
   setVisible,
+  navigation,
 }) => {
   const { colors } = useTheme();
   const initState = { flag: false, message: "" };
@@ -21,27 +22,71 @@ const RouterDialog = ({
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <MaterialCommunityIcons
-              name="information"
-              size={40}
-              color="black"
-              color={colors.primary}
-              style={{
-                padding: 5,
-              }}
-            />
-            <Text style={styles.modalTextHeader}>Aviso</Text>
-            <Text style={styles.modalText}>{visible.message}</Text>
             <Pressable
               style={{
-                borderRadius: 7,
+                width: "100%",
                 padding: 10,
+                elevation: 2,
+                backgroundColor: colors.primary,
+                borderTopStartRadius: 20,
+                borderTopEndRadius: 20,
+                borderBottomWidth: 1,
+                borderBottomColor: colors.background,
+              }}
+              onPress={() => {
+                setVisible(initState);
+                navigation.navigate("Mis tarjetas");
+              }}
+            >
+              <Text style={styles.textStyle}>
+                <MaterialCommunityIcons
+                  name="credit-card-outline"
+                  size={18}
+                  color={colors.background}
+                />{" "}
+                Tarjetas asociadas
+              </Text>
+            </Pressable>
+            <Pressable
+              style={{
+                padding: 10,
+                width: "100%",
+                elevation: 2,
+                backgroundColor: colors.primary,
+                borderBottomWidth: 1,
+                borderBottomColor: colors.background,
+              }}
+              onPress={() => {
+                setVisible(initState);
+                navigation.navigate("Tus movimientos");
+              }}
+            >
+              <Text style={styles.textStyle}>
+                <MaterialCommunityIcons
+                  name="swap-horizontal"
+                  size={18}
+                  color={colors.background}
+                />{" "}
+                Tu historial
+              </Text>
+            </Pressable>
+            <Pressable
+              style={{
+                padding: 10,
+                width: "100%",
                 elevation: 2,
                 backgroundColor: colors.primary,
               }}
               onPress={() => setVisible(initState)}
             >
-              <Text style={styles.textStyle}>Aceptar</Text>
+              <Text style={styles.textStyle}>
+                <MaterialCommunityIcons
+                  name="logout"
+                  size={18}
+                  color={colors.background}
+                />{" "}
+                Cerrar Sesión
+              </Text>
             </Pressable>
           </View>
         </View>
@@ -53,20 +98,14 @@ const RouterDialog = ({
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22,
+    justifyContent: "flex-end",
   },
   modalView: {
-    width: 260,
-    height: 260,
-    margin: 40,
+    width: "100%",
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 50,
     alignItems: "center",
     shadowColor: "#000",
-
     shadowOffset: {
       width: 0,
       height: 2,
@@ -76,18 +115,17 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   textStyle: {
+    fontSize: 16,
     color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    fontFamily: "Montserrat-Bold",
+    marginLeft: 20,
+    padding: 7,
   },
   modalText: {
-    marginBottom: 15,
-    textAlign: "center",
+    padding: 20,
   },
   modalTextHeader: {
-    marginBottom: 15,
     fontSize: 20,
-    textAlign: "center",
   },
 });
 
