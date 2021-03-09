@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import IZIMoney from './IZIMoney';
-import { Appbar } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import EnviarDinero from './EnviarDinero/EnviarDinero';
-import RealizarEnvio from './EnviarDinero/RealizarEnvio';
-import EnvioExitoso from './EnviarDinero/EnvioExitoso';
-import PrestarDinero from './Prestamos/PrestarDinero';
-import RealizarPrestamo from './Prestamos/RealizarPrestamo';
-import PrestamoExitoso from './Prestamos/PrestamoExitoso';
-import SolicitarDinero from './SolicitarDinero/SolicitarDinero';
-import RealizarSolicitud from './SolicitarDinero/RealizarSolicitud';
-import SolicitudEnviada from './SolicitarDinero/SolicitudEnviada';
-import DividirCuenta from './DividirCuenta/DividirCuenta';
-import Dividir from './DividirCuenta/Dividir';
-import PagosPendientes from './PagosPendientes/PagosPendientes';
-import PagarGasto from './PagosPendientes/PagarGasto';
-import PagoExitoso from './PagosPendientes/PagoExitoso';
-import ParticipantesCuenta from './DividirCuenta/ParticipantesCuenta';
-import RetirarDinero from './RetirarDinero/RetirarDinero';
-import RetirarExitoso from './RetirarDinero/RetirarExitoso';
-import RecargarDinero from './RecargarDinero/RecargarDinero';
-import RecargarExitoso from './RecargarDinero/RecargarExitoso';
+import * as React from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import IZIMoney from "./IZIMoney";
+import { Appbar } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import EnviarDinero from "./EnviarDinero/EnviarDinero";
+import RealizarEnvio from "./EnviarDinero/RealizarEnvio";
+import EnvioExitoso from "./EnviarDinero/EnvioExitoso";
+import PrestarDinero from "./Prestamos/PrestarDinero";
+import RealizarPrestamo from "./Prestamos/RealizarPrestamo";
+import PrestamoExitoso from "./Prestamos/PrestamoExitoso";
+import SolicitarDinero from "./SolicitarDinero/SolicitarDinero";
+import RealizarSolicitud from "./SolicitarDinero/RealizarSolicitud";
+import SolicitudEnviada from "./SolicitarDinero/SolicitudEnviada";
+import DividirCuenta from "./DividirCuenta/DividirCuenta";
+import Dividir from "./DividirCuenta/Dividir";
+import PagosPendientes from "./PagosPendientes/PagosPendientes";
+import PagarGasto from "./PagosPendientes/PagarGasto";
+import PagoExitoso from "./PagosPendientes/PagoExitoso";
+import ParticipantesCuenta from "./DividirCuenta/ParticipantesCuenta";
+import RetirarDinero from "./RetirarDinero/RetirarDinero";
+import RetirarExitoso from "./RetirarDinero/RetirarExitoso";
+import RecargarDinero from "./RecargarDinero/RecargarDinero";
+import RecargarExitoso from "./RecargarDinero/RecargarExitoso";
 
 const IZIMoneyNavigator = () => {
   const Stack = createStackNavigator();
@@ -35,7 +35,7 @@ const IZIMoneyNavigator = () => {
                 <Appbar.BackAction onPress={navigation.goBack} />
               ) : null}
               <Appbar.Content
-                titleStyle={{ fontFamily: 'Montserrat-SemiBold' }}
+                titleStyle={{ fontFamily: "Montserrat-SemiBold" }}
                 style={style.appTitle}
                 title={
                   scene.route.params
@@ -61,11 +61,14 @@ const IZIMoneyNavigator = () => {
       <Stack.Screen name="Solicitud enviada" component={SolicitudEnviada} />
       <Stack.Screen name="Dividir cuenta" component={DividirCuenta} />
       <Stack.Screen name="Dividir" component={Dividir} />
-      <Stack.Screen name="Participantes" component={ParticipantesCuenta} />
+      <Stack.Screen
+        name="Participantes Cuenta"
+        component={ParticipantesCuenta}
+      />
       <Stack.Screen name="Pagos pendientes" component={PagosPendientes} />
       <Stack.Screen name="Pagar gasto" component={PagarGasto} />
       <Stack.Screen name="Pago exitoso" component={PagoExitoso} />
-	    <Stack.Screen name="Retirar dinero" component={RetirarDinero} />
+      <Stack.Screen name="Retirar dinero" component={RetirarDinero} />
       <Stack.Screen name="Retirar exitoso" component={RetirarExitoso} />
       <Stack.Screen name="Recargar dinero" component={RecargarDinero} />
       <Stack.Screen name="Recargar exitoso" component={RecargarExitoso} />
@@ -74,10 +77,10 @@ const IZIMoneyNavigator = () => {
 };
 const style = StyleSheet.create({
   appBar: {
-    backgroundColor: '#222831',
+    backgroundColor: "#222831",
   },
   appTitle: {
-    alignItems: 'center',
+    alignItems: "center",
   },
 });
 export default IZIMoneyNavigator;
