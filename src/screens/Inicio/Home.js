@@ -41,7 +41,14 @@ const Home = ({ navigation }) => {
         <View style={style.buttonsContainer}>
           <View style={style.buttonContainer}>
             <Text>Solicitar</Text>
-            <TouchableOpacity activeOpacity={0.5}>
+            <TouchableOpacity
+              activeOpacity={0.5}
+              onPress={() => {
+                navigation.navigate("Solicitar dinero", {
+                  name: "Solicitar dinero",
+                });
+              }}
+            >
               <Image
                 source={{
                   uri:
@@ -56,7 +63,9 @@ const Home = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.5}
               onPress={() => {
-                console.log("gaea");
+                navigation.navigate("Dividir cuenta", {
+                  name: "Dividir cuenta",
+                });
               }}
             >
               <Image

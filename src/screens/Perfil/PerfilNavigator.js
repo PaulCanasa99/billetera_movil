@@ -8,6 +8,7 @@ import Perfil from "./Perfil";
 import Activity from "../Actividad/Activity";
 import TarjetaAsociada from "./TarjetasAsociadas";
 import { Context } from "../../context/Context";
+import Detalle from "../Actividad/Detalle";
 
 const PerfilNavigator = () => {
   const Stack = createStackNavigator();
@@ -27,7 +28,9 @@ const PerfilNavigator = () => {
             <Appbar.Header style={style.appBar}>
               {previous ? (
                 <Appbar.BackAction onPress={navigation.goBack} />
-              ) : null}
+              ) : (
+                <Appbar.Action />
+              )}
               <Appbar.Content
                 titleStyle={{ fontFamily: "Montserrat-SemiBold" }}
                 style={style.appTitle}
@@ -52,6 +55,7 @@ const PerfilNavigator = () => {
       <Stack.Screen name="Mi Perfil" component={Perfil} />
       <Stack.Screen name="Tus movimientos" component={Activity} />
       <Stack.Screen name="Mis tarjetas" component={TarjetaAsociada} />
+      <Stack.Screen name="Detalle" component={Detalle} />
     </Stack.Navigator>
   );
 };
