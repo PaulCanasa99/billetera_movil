@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Button, useTheme, List, Text } from "react-native-paper";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
-import { TouchableOpacity, TextInput } from "react-native-gesture-handler";
+import { View, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native-gesture-handler";
 import firestore from "@react-native-firebase/firestore";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -20,117 +24,114 @@ const DividirCuenta = ({ navigation }) => {
     });
   };
   return (
-    <View style={style.container}>
-      <TouchableOpacity
-        style={style.touchable}
-        activeOpacity={0.75}
-        onPress={() =>
-          navigation.navigate("Participantes Cuenta", {
-            name: "Participantes",
-          })
-        }
-      >
-        <Text
-          style={{
-            flexGrow: 0.5,
-            color: colors.primary,
-            fontFamily: "Montserrat-SemiBold",
-          }}
+    <ScrollView>
+      <View style={style.container}>
+        <TouchableOpacity
+          style={style.touchable}
+          activeOpacity={0.75}
+          onPress={() => navigation.navigate("Participantes")}
         >
-          Divido entre ti y:
-        </Text>
-        <View style={{ alignItems: "center" }}>
-          <MaterialCommunityIcons
-            name="account"
-            size={30}
-            color={colors.primary}
-            style={style.image}
-          ></MaterialCommunityIcons>
-          <Text style={{ fontSize: 10 }}>Andrés</Text>
-        </View>
-
-        <View style={{ alignItems: "center" }}>
-          <MaterialCommunityIcons
-            name="account"
-            size={30}
-            color={colors.primary}
-            style={style.image}
-          ></MaterialCommunityIcons>
-          <Text style={{ fontSize: 10 }}>Andrés</Text>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <MaterialCommunityIcons
-            name="account"
-            size={30}
-            color={colors.primary}
-            style={style.image}
-          ></MaterialCommunityIcons>
-          <Text style={{ fontSize: 10 }}>Andrés</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={{ marginVertical: 40 }}>
-        <Text
-          style={{
-            fontFamily: "Montserrat-SemiBold",
-            color: colors.primary,
-          }}
-        >
-          Monto total a dividir:
-        </Text>
-        <View style={style.montoContainer}>
           <Text
             style={{
-              fontFamily: "Montserrat-Bold",
-              fontSize: 24,
+              flexGrow: 0.5,
+              color: colors.primary,
+              fontFamily: "Montserrat-SemiBold",
+            }}
+          >
+            Divido entre ti y:
+          </Text>
+          <View style={{ alignItems: "center" }}>
+            <MaterialCommunityIcons
+              name="account"
+              size={30}
+              color={colors.primary}
+              style={style.image}
+            ></MaterialCommunityIcons>
+            <Text style={{ fontSize: 10 }}>Andrés</Text>
+          </View>
+
+          <View style={{ alignItems: "center" }}>
+            <MaterialCommunityIcons
+              name="account"
+              size={30}
+              color={colors.primary}
+              style={style.image}
+            ></MaterialCommunityIcons>
+            <Text style={{ fontSize: 10 }}>Andrés</Text>
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <MaterialCommunityIcons
+              name="account"
+              size={30}
+              color={colors.primary}
+              style={style.image}
+            ></MaterialCommunityIcons>
+            <Text style={{ fontSize: 10 }}>Andrés</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ marginVertical: 40 }}>
+          <Text
+            style={{
+              fontFamily: "Montserrat-SemiBold",
               color: colors.primary,
             }}
           >
-            S/.
+            Monto total a dividir:
           </Text>
-          <TextInput
-            style={style.monto}
-            value={monto}
-            onChangeText={(monto) => setMonto(monto)}
-            placeholder="0.00"
-            keyboardType="numeric"
-          />
+          <View style={style.montoContainer}>
+            <Text
+              style={{
+                fontFamily: "Montserrat-Bold",
+                fontSize: 24,
+                color: colors.primary,
+              }}
+            >
+              S/.
+            </Text>
+            <TextInput
+              style={style.monto}
+              value={monto}
+              onChangeText={(monto) => setMonto(monto)}
+              placeholder="0.00"
+              keyboardType="numeric"
+            />
+          </View>
         </View>
-      </View>
-      <View>
-        <Text
-          style={{
-            fontFamily: "Montserrat-SemiBold",
-            color: colors.primary,
-          }}
+        <View>
+          <Text
+            style={{
+              fontFamily: "Montserrat-SemiBold",
+              color: colors.primary,
+            }}
+          >
+            ¿Para qué es?
+          </Text>
+          <View style={style.mensajeContainer}>
+            <MaterialCommunityIcons
+              name="email"
+              size={30}
+              color="black"
+              color={colors.primary}
+            />
+            <TextInput
+              theme={{ roundness: 0 }}
+              style={style.mensaje}
+              value={mensaje}
+              onChangeText={(mensaje) => setMensaje(mensaje)}
+              placeholder="Escriba un mensaje"
+            />
+          </View>
+        </View>
+        <Button
+          style={style.button}
+          uppercase={false}
+          mode="contained"
+          onPress={dividirCuenta}
         >
-          ¿Para qué es?
-        </Text>
-        <View style={style.mensajeContainer}>
-          <MaterialCommunityIcons
-            name="email"
-            size={30}
-            color="black"
-            color={colors.primary}
-          />
-
-          <TextInput
-            theme={{ roundness: 0 }}
-            style={style.mensaje}
-            value={mensaje}
-            onChangeText={(mensaje) => setMensaje(mensaje)}
-            placeholder="Escriba un mensaje"
-          />
-        </View>
+          Dividir
+        </Button>
       </View>
-      <Button
-        style={style.button}
-        uppercase={false}
-        mode="contained"
-        onPress={dividirCuenta}
-      >
-        Dividir
-      </Button>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -189,7 +190,7 @@ const style = StyleSheet.create({
     marginHorizontal: 10,
   },
   button: {
-    marginTop: 160,
+    marginTop: 80,
     width: "60%",
     justifyContent: "center",
   },
