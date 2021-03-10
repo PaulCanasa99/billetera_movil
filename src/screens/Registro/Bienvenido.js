@@ -6,6 +6,7 @@ import auth from '@react-native-firebase/auth';
 import Verificacion from './Verificacion';
 import { Context } from '../../context/Context';
 import { firebase } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 
 const Bienvenido = ({ navigation }) => {
   const [confirm, setConfirm] = useState(null);
@@ -21,19 +22,17 @@ const Bienvenido = ({ navigation }) => {
     try {
       await confirm.confirm(code);
       console.log('codigo correcto');
-      console.log(
-        'f',
-        firebase.auth().currentUser.metadata.creationTime ===
-          firebase.auth().currentUser.metadata.lastSignInTime
-      );
-
-      if (
-        firebase.auth().currentUser.metadata.creationTime ===
-        firebase.auth().currentUser.metadata.lastSignInTime
-      )
-        navigation.navigate('Registro', {
-          name: 'Registro',
-          phoneNumber: `+51${phoneNumber}`,
+      firestore()
+        .collection('Usuarios')
+        .where('celular', '==', phoneNumber)
+        .limit(1)
+        .get()
+        .then((querySnapshot) => {
+          if (querySnapshot.empty)
+            navigation.navigate('Registro', {
+              name: 'Registro',
+              phoneNumber: `+51${phoneNumber}`,
+            });
         });
     } catch (error) {
       console.log('Invalid code.');

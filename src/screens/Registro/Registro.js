@@ -12,7 +12,7 @@ const Registro = ({ navigation, route }) => {
   const [apellidos, setApellidos] = useState('');
   const [email, setEmail] = useState('');
   const [dni, setDni] = useState('');
-  const { setUsuario } = useContext(Context);
+  const { usuario, setUsuario } = useContext(Context);
   const register = () => {
     setUsuario({
       nombres: nombres,
@@ -22,14 +22,19 @@ const Registro = ({ navigation, route }) => {
       celular: phoneNumber,
       saldo: 0,
     });
-    firestore().collection('Usuarios').add({
-      nombres: nombres,
-      apellidos: apellidos,
-      email: email,
-      dni: dni,
-      celular: phoneNumber,
-      saldo: 0,
-    });
+    // firestore()
+    //   .collection('Usuarios')
+    //   .add({
+    //     nombres: nombres,
+    //     apellidos: apellidos,
+    //     email: email,
+    //     dni: dni,
+    //     celular: phoneNumber,
+    //     saldo: 0,
+    //   })
+    //   .then((document) => {
+    //     setUsuario({ ...usuario, userId: document.id });
+    //   });
     navigation.navigate('App');
   };
 
