@@ -8,9 +8,10 @@ const PagarGasto = ({ navigation }) => {
   const { colors } = useTheme();
   const pagar = () => {
     navigation.navigate('Pago exitoso', {
-      monto: 20.5,
-      destino: { nombres: 'Andrés', apellidos: 'Koga' },
-      mensaje: 'Para el almuerzo',
+      monto: 3.5,
+      destino: { nombres: 'Ronaldo', apellidos: 'Tunque' },
+      mensaje: 'Para el taxi',
+      name: 'Pago exitoso',
     });
   };
   return (
@@ -36,7 +37,7 @@ const PagarGasto = ({ navigation }) => {
           color="black"
           color={colors.primary}
         />
-        <Text style={style.mensaje}>Pago del restaurante</Text>
+        <Text style={style.mensaje}>Para el taxi</Text>
       </View>
       <TouchableOpacity style={style.touchable} activeOpacity={0.75}>
         <Text
@@ -55,7 +56,7 @@ const PagarGasto = ({ navigation }) => {
             color={colors.primary}
             style={style.image}
           ></MaterialCommunityIcons>
-          <Text style={{ fontSize: 10 }}>Andrés</Text>
+          <Text style={{ fontSize: 10 }}>Tú</Text>
         </View>
 
         <View style={{ alignItems: 'center' }}>
@@ -65,7 +66,7 @@ const PagarGasto = ({ navigation }) => {
             color={colors.primary}
             style={style.image}
           ></MaterialCommunityIcons>
-          <Text style={{ fontSize: 10 }}>Andrés</Text>
+          <Text style={{ fontSize: 10 }}>Ronaldo</Text>
         </View>
         <View style={{ alignItems: 'center' }}>
           <MaterialCommunityIcons
@@ -93,7 +94,7 @@ const PagarGasto = ({ navigation }) => {
           color={colors.primary}
           style={style.image}
         ></MaterialCommunityIcons>
-        <Text style={{ fontSize: 14 }}>Andrés Koga</Text>
+        <Text style={{ fontSize: 14 }}>Ronaldo Tunque</Text>
       </TouchableOpacity>
       <Button
         style={style.button}

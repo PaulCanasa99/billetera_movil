@@ -1,26 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Button, useTheme, List, Text } from "react-native-paper";
-import { View, StyleSheet } from "react-native";
+import React, { useEffect, useState, useContext } from 'react';
+import { Button, useTheme, List, Text } from 'react-native-paper';
+import { View, StyleSheet } from 'react-native';
 import {
   TouchableOpacity,
   TextInput,
   ScrollView,
-} from "react-native-gesture-handler";
-import firestore from "@react-native-firebase/firestore";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+} from 'react-native-gesture-handler';
+import firestore from '@react-native-firebase/firestore';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DividirCuenta = ({ navigation }) => {
-  const [monto, setMonto] = useState("");
+  const [monto, setMonto] = useState('');
   const [mensaje, setMensaje] = useState();
   const [loading, setLoading] = useState(true);
   const { colors } = useTheme();
   const data = [0, 1, 2];
   const dividirCuenta = () => {
-    navigation.navigate("Dividir", {
-      name: "Dividir",
+    navigation.navigate('Dividir', {
+      name: 'Dividir',
       monto: 20.5,
-      destino: { nombres: "Andrés", apellidos: "Koga" },
-      mensaje: "Para el almuerzo",
+      destino: { nombres: 'Andrés', apellidos: 'Koga' },
+      mensaje: 'Para el almuerzo',
     });
   };
   return (
@@ -29,18 +29,18 @@ const DividirCuenta = ({ navigation }) => {
         <TouchableOpacity
           style={style.touchable}
           activeOpacity={0.75}
-          onPress={() => navigation.navigate("Participantes Cuenta")}
+          onPress={() => navigation.navigate('Participantes Cuenta')}
         >
           <Text
             style={{
               flexGrow: 0.5,
               color: colors.primary,
-              fontFamily: "Montserrat-SemiBold",
+              fontFamily: 'Montserrat-SemiBold',
             }}
           >
             Divido entre ti y:
           </Text>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: 'center' }}>
             <MaterialCommunityIcons
               name="account"
               size={30}
@@ -50,29 +50,29 @@ const DividirCuenta = ({ navigation }) => {
             <Text style={{ fontSize: 10 }}>Andrés</Text>
           </View>
 
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: 'center' }}>
             <MaterialCommunityIcons
               name="account"
               size={30}
               color={colors.primary}
               style={style.image}
             ></MaterialCommunityIcons>
-            <Text style={{ fontSize: 10 }}>Andrés</Text>
+            <Text style={{ fontSize: 10 }}>Ronaldo</Text>
           </View>
-          <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: 'center' }}>
             <MaterialCommunityIcons
               name="account"
               size={30}
               color={colors.primary}
               style={style.image}
             ></MaterialCommunityIcons>
-            <Text style={{ fontSize: 10 }}>Andrés</Text>
+            <Text style={{ fontSize: 10 }}>Renzo</Text>
           </View>
         </TouchableOpacity>
         <View style={{ marginVertical: 40 }}>
           <Text
             style={{
-              fontFamily: "Montserrat-SemiBold",
+              fontFamily: 'Montserrat-SemiBold',
               color: colors.primary,
             }}
           >
@@ -81,7 +81,7 @@ const DividirCuenta = ({ navigation }) => {
           <View style={style.montoContainer}>
             <Text
               style={{
-                fontFamily: "Montserrat-Bold",
+                fontFamily: 'Montserrat-Bold',
                 fontSize: 24,
                 color: colors.primary,
               }}
@@ -100,7 +100,7 @@ const DividirCuenta = ({ navigation }) => {
         <View>
           <Text
             style={{
-              fontFamily: "Montserrat-SemiBold",
+              fontFamily: 'Montserrat-SemiBold',
               color: colors.primary,
             }}
           >
@@ -139,49 +139,49 @@ const style = StyleSheet.create({
   container: {
     paddingTop: 30,
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
   },
   mensajeContainer: {
-    flexDirection: "row",
-    width: "70%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '70%',
+    alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: "#00ADB5",
+    borderColor: '#00ADB5',
   },
   montoContainer: {
-    flexDirection: "row",
-    width: "70%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '70%',
+    alignItems: 'center',
     borderBottomWidth: 1,
-    borderColor: "#00ADB5",
+    borderColor: '#00ADB5',
     marginBottom: 20,
   },
   mensaje: {
-    fontFamily: "Montserrat-Regular",
+    fontFamily: 'Montserrat-Regular',
     flex: 1,
-    textAlign: "center",
-    marginRight: "10%",
+    textAlign: 'center',
+    marginRight: '10%',
     fontSize: 18,
   },
   monto: {
-    fontFamily: "Montserrat-SemiBold",
+    fontFamily: 'Montserrat-SemiBold',
     flex: 1,
-    textAlign: "center",
-    marginRight: "10%",
+    textAlign: 'center',
+    marginRight: '10%',
     fontSize: 24,
   },
   touchable: {
     marginTop: 30,
     padding: 20,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 50,
-    width: "90%",
+    width: '90%',
     marginVertical: 5,
     borderRadius: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     elevation: 5,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -191,8 +191,8 @@ const style = StyleSheet.create({
   },
   button: {
     marginTop: 80,
-    width: "60%",
-    justifyContent: "center",
+    width: '60%',
+    justifyContent: 'center',
   },
 });
 

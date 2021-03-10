@@ -45,7 +45,8 @@ const AgregarParticipantes = ({ navigation, route }) => {
             console.log('efe');
             throw err;
           } else {
-            setContacts(data);
+            let listSort = data.sort((a, b) => a.givenName > b.givenName);
+            setContacts(listSort);
             setLoading(false);
           }
         });
@@ -76,7 +77,7 @@ const AgregarParticipantes = ({ navigation, route }) => {
           ),
         })
         .then(() => {
-          console.log('gaa');
+          navigation.goBack();
         })
     );
   };
@@ -96,25 +97,29 @@ const AgregarParticipantes = ({ navigation, route }) => {
         {contacts &&
           contacts.map((contact) => {
             return (
-              <List.Item
-                key={contact.phoneNumbers[0].number}
-                style={style.listItem}
-                title={`${contact.givenName} ${contact.familyName}`}
-                description={contact.phoneNumbers[0].number}
-                left={() => <List.Icon icon="account" />}
-                right={() => (
-                  <Checkbox
-                    onPress={() => handlePress(contact.phoneNumbers[0].number)}
-                    status={
-                      invitados.includes(contact.phoneNumbers[0].number)
-                        ? 'checked'
-                        : 'unchecked'
-                    }
-                    color={colors.text}
-                    uncheckedColor={colors.text}
-                  />
-                )}
-              />
+              contact.phoneNumbers[0] && (
+                <List.Item
+                  key={contact.recordID}
+                  style={style.listItem}
+                  title={`${contact.givenName} ${contact.familyName}`}
+                  description={contact.phoneNumbers[0].number}
+                  left={() => <List.Icon icon="account" />}
+                  right={() => (
+                    <Checkbox
+                      onPress={() =>
+                        handlePress(contact.phoneNumbers[0].number)
+                      }
+                      status={
+                        invitados.includes(contact.phoneNumbers[0].number)
+                          ? 'checked'
+                          : 'unchecked'
+                      }
+                      color={colors.text}
+                      uncheckedColor={colors.text}
+                    />
+                  )}
+                />
+              )
             );
           })}
         <Divider style={{ height: 1, backgroundColor: colors.primary }} />

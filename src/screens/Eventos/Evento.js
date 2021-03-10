@@ -11,13 +11,13 @@ const Evento = ({ navigation, route }) => {
   return (
     <ScrollView>
       <View style={style.container}>
-        <Image
+        {/* <Image
           style={style.imagen}
           source={{
             uri:
               'https://www.bbva.com/wp-content/uploads/2017/08/bbva-balon-futbol-2017-08-11-1024x622.jpg',
           }}
-        />
+        /> */}
         <View
           style={{ ...style.textContainer, borderBottomColor: colors.primary }}
         >

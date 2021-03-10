@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Button, useTheme, List } from 'react-native-paper';
+import { Button, useTheme, List, Text } from 'react-native-paper';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import firestore from '@react-native-firebase/firestore';
@@ -8,7 +8,16 @@ const PagosPendientes = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [modo, setModo] = useState('debes');
   const { colors } = useTheme();
-  const data = [0, 1, 2];
+  const data = [
+    {
+      nombres: 'Ronaldo Tunque',
+      descripcion: 'Para el taxi',
+    },
+    {
+      nombres: 'Álvaro Ocola',
+      descripcion: 'Para el almuerzo',
+    },
+  ];
   return (
     <View style={style.container}>
       <View
@@ -50,11 +59,12 @@ const PagosPendientes = ({ navigation }) => {
           return (
             <List.Item
               left={() => <List.Icon icon="account" />}
+              right={() => <Text style={style.monto}>S/. 3.50</Text>}
               onPress={() => navigation.navigate('Pagar gasto')}
               style={{ ...style.listItem, borderBottomColor: colors.primary }}
-              title={item}
+              title={item.nombres}
               titleStyle={{ fontSize: 18, color: colors.text }}
-              description="Para el taxi"
+              description={item.descripcion}
               descriptionStyle={{ fontSize: 18, color: colors.text }}
             />
           );
@@ -78,6 +88,11 @@ const style = StyleSheet.create({
   },
   teDeben: {
     flex: 0.5,
+  },
+  monto: {
+    alignSelf: 'center',
+    fontFamily: 'Montserrat-Bold',
+    marginRight: 20,
   },
 });
 

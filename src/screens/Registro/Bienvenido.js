@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
-import { useTheme, Text, Button } from "react-native-paper";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import auth from "@react-native-firebase/auth";
-import Verificacion from "./Verificacion";
+import React, { useState } from 'react';
+import { View, StyleSheet, Image } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import { useTheme, Text, Button } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import auth from '@react-native-firebase/auth';
+import Verificacion from './Verificacion';
 
 let backgroundColor;
 const Bienvenido = ({ navigation }) => {
@@ -26,25 +26,26 @@ const Bienvenido = ({ navigation }) => {
   async function confirmCode(code) {
     try {
       await confirm.confirm(code);
-      console.log("codigo correcto");
-      navigation.navigate("Registro", {
-        name: "Registro",
+      console.log('codigo correcto');
+      navigation.navigate('Registro', {
+        name: 'Registro',
         phoneNumber: `+51${phoneNumber}`,
       });
     } catch (error) {
-      console.log("Invalid code.");
+      console.log('Invalid code.');
     }
   }
   if (!confirm) {
     return (
       <View style={style.container}>
-        <MaterialCommunityIcons
-          name="account-circle"
-          size={150}
-          color="black"
+        <Image
+          source={{
+            uri:
+              'https://firebasestorage.googleapis.com/v0/b/inductive-gift-291119.appspot.com/o/IZIMoney.png?alt=media&token=3ca2dcd9-eea8-4eaa-8d08-3f4fd1826d54',
+          }}
+          style={style.image}
         />
-
-        <Text style={style.titulo}>Bienvenido a NombreDeLaApp</Text>
+        <Text style={style.titulo}>Bienvenido</Text>
         <Text style={style.texto}>Ingrese su número:</Text>
 
         <View style={style.inputContainer} backgroundColor={colors.accent}>
@@ -74,35 +75,41 @@ const Bienvenido = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titulo: {
+    marginTop: 20,
     fontSize: 36,
-    textAlign: "center",
+    textAlign: 'center',
   },
   texto: {
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
     marginTop: 80,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "70%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '70%',
     borderRadius: 25,
-    backgroundColor: "#EEEEEE",
+    backgroundColor: '#EEEEEE',
     marginTop: 20,
   },
   prefix: {
     marginHorizontal: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   button: {
-    width: "70%",
+    width: '70%',
     borderRadius: 10,
     marginTop: 50,
     marginBottom: 50,
+  },
+  image: {
+    width: 250,
+    height: 250,
+    resizeMode: 'stretch',
   },
 });
 export default Bienvenido;
