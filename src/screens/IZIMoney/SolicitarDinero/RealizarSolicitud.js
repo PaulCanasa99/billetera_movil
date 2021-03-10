@@ -32,39 +32,39 @@ const RealizarSolicitud = ({ navigation, route }) => {
         });
   }, []);
   const enviar = () => {
-    firestore()
-      .collection('Usuarios')
-      .doc(usuario.userId)
-      .update({ saldo: decrement })
-      .then(() => {
-        console.log('user updated');
-      });
-    firestore()
-      .collection('Usuarios')
-      .doc(destino.userId)
-      .update({ saldo: increment })
-      .then(() => {
-        console.log('destino updated');
-      });
-    firestore()
-      .collection('Transacciones')
-      .add({
-        emisor: usuario.userId,
-        emisorNombres: usuario.nombres,
-        emisorApellidos: usuario.apellidos,
-        destino: destino.userId,
-        destinoNombres: destino.nombres,
-        destinoApellidos: destino.apellidos,
-        fecha: firestore.FieldValue.serverTimestamp(),
-        mensaje: mensaje,
-        monto: parseFloat(monto),
-      });
+    // firestore()
+    //   .collection('Usuarios')
+    //   .doc(usuario.userId)
+    //   .update({ saldo: decrement })
+    //   .then(() => {
+    //     console.log('user updated');
+    //   });
+    // firestore()
+    //   .collection('Usuarios')
+    //   .doc(destino.userId)
+    //   .update({ saldo: increment })
+    //   .then(() => {
+    //     console.log('destino updated');
+    //   });
+    // firestore()
+    //   .collection('Transacciones')
+    //   .add({
+    //     emisor: usuario.userId,
+    //     emisorNombres: usuario.nombres,
+    //     emisorApellidos: usuario.apellidos,
+    //     destino: destino.userId,
+    //     destinoNombres: destino.nombres,
+    //     destinoApellidos: destino.apellidos,
+    //     fecha: firestore.FieldValue.serverTimestamp(),
+    //     mensaje: mensaje,
+    //     monto: parseFloat(monto),
+    //   });
     navigation.navigate('Solicitud enviada', {
       name: 'Solicitud enviada',
       monto: monto,
       destino: destino,
       mensaje: mensaje,
-      fecha: new Date(),
+      fecha: new Date().getTime(),
     });
   };
   if (destino)

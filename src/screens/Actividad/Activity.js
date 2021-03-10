@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, ActivityIndicator, FlatList } from "react-native";
-import firestore from "@react-native-firebase/firestore";
-import { List, Text } from "react-native-paper";
-import { Context } from "../../context/Context";
-import { ScrollView } from "react-native-gesture-handler";
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import { List, Text } from 'react-native-paper';
+import { Context } from '../../context/Context';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Activity = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -12,8 +12,8 @@ const Activity = ({ navigation }) => {
   useEffect(() => {
     const movimientos = [];
     firestore()
-      .collection("Transacciones")
-      .where("emisor", "==", usuario.userId)
+      .collection('Transacciones')
+      .where('emisor', '==', usuario.userId)
       .onSnapshot((querySnapshot) => {
         querySnapshot.forEach((documentSnapshot) => {
           movimientos.push({
@@ -23,8 +23,8 @@ const Activity = ({ navigation }) => {
         });
       });
     firestore()
-      .collection("Transacciones")
-      .where("destino", "==", usuario.userId)
+      .collection('Transacciones')
+      .where('destino', '==', usuario.userId)
       .onSnapshot((querySnapshot) => {
         querySnapshot.forEach((documentSnapshot) => {
           movimientos.push({
@@ -44,7 +44,7 @@ const Activity = ({ navigation }) => {
 
   return (
     <>
-      <Text style={style.mes}>Enero 2021</Text>
+      <Text style={style.mes}>Marzo 2021</Text>
       <ScrollView>
         {transacciones &&
           transacciones.map((item) => {
@@ -53,8 +53,8 @@ const Activity = ({ navigation }) => {
               <List.Item
                 key={item.key}
                 onPress={() =>
-                  navigation.navigate("Detalle", {
-                    name: "Detalle",
+                  navigation.navigate('Detalle', {
+                    name: 'Detalle',
                     monto: item.monto,
                     mensaje: item.mensaje,
                     fecha: item.fecha,
@@ -76,7 +76,7 @@ const Activity = ({ navigation }) => {
                   <Text
                     style={{
                       ...style.monto,
-                      color: emisor ? "red" : "black",
+                      color: emisor ? 'red' : 'black',
                     }}
                   >{`S/. ${item.monto.toFixed(2)}`}</Text>
                 )}
@@ -91,21 +91,21 @@ const Activity = ({ navigation }) => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   listItem: {
     paddingLeft: 15,
   },
   monto: {
-    alignSelf: "center",
+    alignSelf: 'center',
     marginRight: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   mes: {
     fontSize: 18,
-    alignSelf: "center",
-    fontFamily: "Montserrat-SemiBold",
+    alignSelf: 'center',
+    fontFamily: 'Montserrat-SemiBold',
     marginTop: 10,
   },
 });

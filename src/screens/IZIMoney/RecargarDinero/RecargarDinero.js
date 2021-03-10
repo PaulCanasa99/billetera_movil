@@ -37,6 +37,7 @@ const RecargaDinero = ({ navigation }) => {
   };
   const register = () => {
     console.log(cardNumber);
+    console.log(usuario);
     if (!cardNumber.valid || amount <= 0) {
       setVisible({
         flag: true,
