@@ -21,7 +21,13 @@ const Dividir = ({ navigation }) => {
   const [modo, setModo] = useState("igual");
   const [contacts, setContacts] = useState(null);
   const { colors } = useTheme();
-  const data = ["Andrés Koga", "Ronaldo Tunque", "Renzo Martínez"];
+  const data = [
+    "Andrés Koga",
+    "José Marquez",
+    "Paul",
+    "Renzo Martinez",
+    "Álvaro Ocola",
+  ];
 
   useEffect(() => {
     if (Platform.OS === "ios") {
@@ -163,13 +169,13 @@ const Dividir = ({ navigation }) => {
         </Button>
       </View>
       <ScrollView>
-        {data &&
-          data.map((item) => {
+        {contacts &&
+          contacts.map((item) => {
             return (
               <List.Item
-                key={item}
+                key={item.recordID}
                 style={style.listItem}
-                title={item}
+                title={`${item.givenName} ${item.familyName}`}
                 titleStyle={{ fontSize: 14 }}
                 left={() => <List.Icon icon="account" />}
                 right={() => (

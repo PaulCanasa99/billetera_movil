@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTheme, List, Divider, Text } from "react-native-paper";
-import { View, StyleSheet, PermissionsAndroid, Platform } from "react-native";
+import {
+  View,
+  StyleSheet,
+  PermissionsAndroid,
+  Platform,
+  TextInput,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Contacts from "react-native-contacts";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
@@ -43,7 +49,7 @@ const CuentaDividida = ({ navigation }) => {
   return (
     <View style={style.container}>
       <View style={{ alignItems: "center", padding: 20 }}>
-        <Text style={{ fontSize: 17 }}>Almuerzo grupal dividido entre</Text>
+        <Text style={{ fontSize: 17 }}>Para el almuerzo se divide entre</Text>
       </View>
       <ScrollView>
         {contacts &&
@@ -59,17 +65,20 @@ const CuentaDividida = ({ navigation }) => {
                     <List.Icon icon="account" style={{ margin: 10 }} />
                   )}
                   right={() => (
-                    <View>
-                      <Text style={{ marginRight: 50, marginTop: 20 }}>
-                        S/. 10.00
-                      </Text>
-                      <Divider
+                    <View style={{ justifyContent: "center", marginRight: 20 }}>
+                      <View
                         style={{
-                          height: 2,
-                          backgroundColor: colors.primary,
-                          marginRight: 45,
+                          flexDirection: "row",
+                          alignItems: "center",
+                          borderBottomColor: colors.primary,
+                          borderBottomWidth: 2,
                         }}
-                      ></Divider>
+                      >
+                        <Text style={{ fontFamily: "Montserrat-SemiBold" }}>
+                          S/.
+                        </Text>
+                        <Text>10.00</Text>
+                      </View>
                     </View>
                   )}
                 />
