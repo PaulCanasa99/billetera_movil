@@ -52,10 +52,6 @@ const App = () => {
   const [visible, setVisible] = useState({ flag: false, message: '' });
 
   const onAuthStateChanged = (user) => {
-    setUser(user);
-  };
-
-  useEffect(() => {
     if (user)
       firestore()
         .collection('Usuarios')
@@ -69,9 +65,14 @@ const App = () => {
               userId: documentSnapshot.id,
             });
           });
+          setInitializing(false);
         });
-    if (initializing) setInitializing(false);
-  }, [user]);
+    else {
+      setUsuario(null);
+      setInitializing(false);
+    }
+  };
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
