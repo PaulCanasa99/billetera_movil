@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { Button, useTheme, Text, Divider, List } from "react-native-paper";
-import { FlatList } from "react-native-gesture-handler";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Button, useTheme, Text, Divider, List } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const GroupsGastoTotal = ({ navigation, route }) => {
   const data = [
     {
       id: 1,
-      owner: "Paul Canasa",
-      purpose: "Taxi al aeropuerto",
+      owner: 'Paul Canasa',
+      purpose: 'Taxi al aeropuerto',
       amount: 25.0,
     },
-    { id: 2, owner: "Jose Luis Marquez", purpose: "Almuerzo", amount: 15.0 },
-    { id: 2, owner: "Ronaldo Tunque", purpose: "Recuerdo viaje", amount: 50.0 },
+    { id: 2, owner: 'Jose Luis Marquez', purpose: 'Almuerzo', amount: 15.0 },
+    { id: 2, owner: 'Ronaldo Tunque', purpose: 'Recuerdo viaje', amount: 50.0 },
   ];
   const { colors } = useTheme();
-  const [modo, setModo] = useState("pendientes");
+  const [modo, setModo] = useState('pendientes');
   const total = 250.0;
   const gastos = 100.0;
 
   const onAnadir = () => {
-    navigation.navigate("Añadir");
+    navigation.navigate('Añadir', { name: 'Añadir Gasto' });
   };
   return (
     <View style={style.container}>
@@ -32,17 +32,16 @@ const GroupsGastoTotal = ({ navigation, route }) => {
           size={80}
         />
         <Divider style={{ height: 6 }} />
-        <Text style={{ fontSize: 25 }}>Total: S/.{total}</Text>
+        <Text style={{ fontSize: 18 }}>Total: S/.{total}</Text>
         <Divider style={{ height: 6 }} />
-        <Text style={{ fontSize: 25 }}>Tus gastos: S/.{gastos}</Text>
-        <Divider style={{ height: 6 }} />
+        <Text style={{ fontSize: 18 }}>Tus gastos: S/.{gastos}</Text>
         <View>
           <Button
-            style={{ ...style.button, marginTop: 4 }}
+            style={{ ...style.button, marginVertical: 15 }}
             mode="contained"
             uppercase={false}
             onPress={onAnadir}
-            labelStyle={{ fontSize: 18 }}
+            labelStyle={{ fontSize: 18, fontFamily: 'Montserrat-SemiBold' }}
           >
             Añadir gasto
           </Button>
@@ -52,7 +51,6 @@ const GroupsGastoTotal = ({ navigation, route }) => {
         style={{
           backgroundColor: colors.primary,
           height: 2,
-          width: "100%",
           marginBottom: 10,
         }}
       ></Divider>
@@ -60,13 +58,13 @@ const GroupsGastoTotal = ({ navigation, route }) => {
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 14, marginVertical: 5 }}
-          color={modo === "pendientes" ? "white" : colors.text}
+          color={modo === 'pendientes' ? 'white' : colors.text}
           style={{
             ...style.debes,
             backgroundColor:
-              modo === "pendientes" ? colors.primary : colors.background,
+              modo === 'pendientes' ? colors.primary : colors.background,
           }}
-          onPress={() => setModo("pendientes")}
+          onPress={() => setModo('pendientes')}
           uppercase={false}
         >
           Pendientes
@@ -74,13 +72,13 @@ const GroupsGastoTotal = ({ navigation, route }) => {
         <Button
           theme={{ roundness: 0 }}
           labelStyle={{ fontSize: 14, marginVertical: 5 }}
-          color={modo === "pagados" ? "white" : colors.text}
+          color={modo === 'pagados' ? 'white' : colors.text}
           style={{
             ...style.debes,
             backgroundColor:
-              modo === "pagados" ? colors.primary : colors.background,
+              modo === 'pagados' ? colors.primary : colors.background,
           }}
-          onPress={() => setModo("pagados")}
+          onPress={() => setModo('pagados')}
           uppercase={false}
         >
           Pagados
@@ -116,49 +114,17 @@ const style = StyleSheet.create({
     flex: 1,
     marginBottom: 60,
   },
-  greeting: {
-    alignSelf: "center",
-    fontSize: 32,
-    width: "80%",
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  card: {
-    alignSelf: "center",
-    alignItems: "center",
-    width: "90%",
-    borderRadius: 10,
-    padding: 10,
-    elevation: 5,
-    backgroundColor: "white",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
   balance: {
-    flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: 5,
   },
-  buttonsContainer: {
-    marginTop: 25,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "95%",
-  },
   opciones: {
-    alignSelf: "center",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     borderWidth: 1,
-    width: "60%",
-  },
-  button: {
-    width: "60%",
-    marginTop: 50,
-    justifyContent: "center",
+    width: '60%',
   },
   debes: {
     flex: 1,
@@ -169,17 +135,17 @@ const style = StyleSheet.create({
   image: {
     width: 50,
     height: 50,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginVertical: 10,
   },
   monto: {
-    alignSelf: "center",
-    fontFamily: "Montserrat-Bold",
+    alignSelf: 'center',
+    fontFamily: 'Montserrat-Bold',
     marginRight: 20,
   },
   button: {
-    alignSelf: "center",
-    width: "50%",
+    alignSelf: 'center',
+    width: '60%',
   },
 });
 

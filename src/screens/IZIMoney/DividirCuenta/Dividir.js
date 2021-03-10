@@ -21,6 +21,7 @@ const Dividir = ({ navigation }) => {
   const [modo, setModo] = useState('igual');
   const [contacts, setContacts] = useState(null);
   const { colors } = useTheme();
+  const data = ['Andrés Koga', 'Ronaldo Tunque', 'Renzo Martínez'];
 
   useEffect(() => {
     if (Platform.OS === 'ios') {
@@ -47,12 +48,7 @@ const Dividir = ({ navigation }) => {
       });
     }
   }, []);
-  const handlePress = (phoneNumber) => {
-    navigation.navigate('Realizar envio', {
-      name: 'Realizar envío',
-      phoneNumber: phoneNumber,
-    });
-  };
+
   return (
     <>
       <View>
@@ -163,13 +159,13 @@ const Dividir = ({ navigation }) => {
         </Button>
       </View>
       <ScrollView>
-        {contacts &&
-          contacts.map((contact) => {
+        {data &&
+          data.map((item) => {
             return (
               <List.Item
-                key={contact.phoneNumbers[0].number}
+                key={item}
                 style={style.listItem}
-                title={`${contact.givenName} ${contact.familyName}`}
+                title={item}
                 titleStyle={{ fontSize: 14 }}
                 left={() => <List.Icon icon="account" />}
                 right={() => (

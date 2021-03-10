@@ -15,7 +15,7 @@ const Participantes = ({ navigation }) => {
   const [eventos, setEventos] = useState([]);
   const { usuario } = useContext(Context);
   const onChangeSearch = (query) => setSearchQuery(query);
-
+  const data = ['Paul Canasa', 'Ronaldo Tunque', 'Álvaro Ocola'];
   useEffect(() => {
     const subscriber = firestore()
       .collection('Eventos')
@@ -80,31 +80,14 @@ const Participantes = ({ navigation }) => {
       />
       <Divider style={{ height: 1, backgroundColor: colors.primary }}></Divider>
       <FlatList
-        data={eventos}
+        data={data}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => {
           return (
             <List.Item
               left={() => <List.Icon icon="account" />}
-              title={item.nombre}
+              title={item}
               titleStyle={{ fontSize: 18, color: colors.text }}
-              description={format(
-                item.fecha.toDate(),
-                "EEEE, d 'de' MMMM HH:mm",
-                { locale: es }
-              )}
-              descriptionStyle={{ fontSize: 18, color: colors.text }}
-              onPress={() =>
-                navigation.navigate('Evento', {
-                  nombre: item.nombre,
-                  descripcion: item.descripcion,
-                  fecha: item.fecha,
-                  precio: item.precio,
-                  organizadorId: item.organizadorId,
-                  organizadorNombres: item.organizadorNombres,
-                  organizadorApellidos: item.organizadorApellidos,
-                  eventoId: item.key,
-                })
-              }
             />
           );
         }}

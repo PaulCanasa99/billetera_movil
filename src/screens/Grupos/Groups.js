@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import React, { useState } from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import {
   Searchbar,
   Divider,
@@ -7,13 +7,13 @@ import {
   List,
   Text,
   Checkbox,
-} from "react-native-paper";
-import { FlatList } from "react-native-gesture-handler";
+} from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
 
-const mock = ["Viaje a Europa", "Trabajo Grupal", "Proyecto"];
+const mock = ['Viaje a Europa', 'Trabajo Grupal', 'Proyecto'];
 const Groups = ({ navigation, route }) => {
   const { colors } = useTheme();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = (query) => setSearchQuery(query);
   const contacts = mock;
   return (
@@ -34,12 +34,10 @@ const Groups = ({ navigation, route }) => {
               left={() => (
                 <List.Icon icon="account-group" color={colors.primary} />
               )}
-              onPress={() => navigation.navigate("Gastos")}
+              onPress={() => navigation.navigate('Gastos', { name: item })}
               style={{ ...style.listItem, borderBottomColor: colors.primary }}
               title={item}
               titleStyle={{ fontSize: 18, color: colors.text }}
-              description=""
-              descriptionStyle={{ fontSize: 18, color: colors.text }}
             />
           );
         }}
@@ -56,13 +54,13 @@ const style = StyleSheet.create({
     borderBottomWidth: 1,
   },
   searchBar: {
-    backgroundColor: "white",
-    width: "95%",
-    alignSelf: "center",
+    backgroundColor: 'white',
+    width: '95%',
+    alignSelf: 'center',
     marginVertical: 10,
   },
   groupCountainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginBottom: 20,
   },
 });

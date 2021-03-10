@@ -64,7 +64,7 @@ const RealizarEnvio = ({ navigation, route }) => {
       monto: monto,
       destino: destino,
       mensaje: mensaje,
-      fecha: new Date(),
+      fecha: new Date().getTime(),
     });
   };
   if (destino)

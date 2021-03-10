@@ -1,13 +1,13 @@
-import React from "react";
-import { StyleSheet, SafeAreaView, View } from "react-native";
-import { Avatar, useTheme, Text, Button } from "react-native-paper";
-import { Ionicons } from "@expo/vector-icons";
-import { FlatGrid } from "react-native-super-grid";
+import React from 'react';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { Avatar, useTheme, Text, Button } from 'react-native-paper';
+import { Ionicons } from '@expo/vector-icons';
+import { FlatGrid } from 'react-native-super-grid';
 
 const TarjetaAsociada = () => {
   const { colors } = useTheme();
-  const data1 = ["Tarjeta 1", "**** **** **** 4234"];
-  const data2 = ["Tarjeta 2", "**** **** **** 4235"];
+  const data1 = ['Tarjeta 1', '**** **** **** 4234'];
+  const data2 = ['Tarjeta 2', '**** **** **** 4235'];
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.userInfoSection}>
@@ -17,7 +17,7 @@ const TarjetaAsociada = () => {
               itemDimension={130}
               data={data1}
               renderItem={({ item, id }) =>
-                item === "Tarjeta 1" ? (
+                item === 'Tarjeta 1' ? (
                   <Ionicons
                     name="star"
                     size={16}
@@ -28,14 +28,13 @@ const TarjetaAsociada = () => {
                       color: colors.primary,
                     }}
                   >
-                    <Text style={{ color: colors.primary, fontWeight: "bold" }}>
-                      {" "}
+                    <Text style={{ color: colors.primary, fontWeight: 'bold' }}>
                       {item}
                     </Text>
                   </Ionicons>
                 ) : (
                   <Text>
-                    {item}{" "}
+                    {item}
                     <Ionicons
                       name="card-outline"
                       size={20}
@@ -53,7 +52,7 @@ const TarjetaAsociada = () => {
               itemDimension={130}
               data={data2}
               renderItem={({ item, id }) =>
-                item === "Tarjeta 2" ? (
+                item === 'Tarjeta 2' ? (
                   <Ionicons
                     name="star"
                     size={16}
@@ -67,16 +66,15 @@ const TarjetaAsociada = () => {
                     <Text
                       style={{
                         color: colors.primary,
-                        fontFamily: "Montserrat-Bold",
+                        fontFamily: 'Montserrat-Bold',
                       }}
                     >
-                      {" "}
                       {item}
                     </Text>
                   </Ionicons>
                 ) : (
                   <Text>
-                    {item}{" "}
+                    {item}{' '}
                     <Ionicons
                       name="card-outline"
                       size={20}
@@ -89,17 +87,17 @@ const TarjetaAsociada = () => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <Button style={styles.button} mode="contained" uppercase={false}>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#fff",
-                fontFamily: "Montserrat-SemiBold",
-              }}
-            >
-              Añadir nuevo medio de pago{" "}
-              <Ionicons name="add-outline" size={20} color="#fff"></Ionicons>
-            </Text>
+          <Button
+            style={styles.button}
+            mode="contained"
+            labelStyle={{
+              fontSize: 16,
+              fontFamily: 'Montserrat-SemiBold',
+            }}
+            uppercase={false}
+          >
+            Añadir nuevo medio de pago
+            <Ionicons name="add-outline" size={20} color="#fff"></Ionicons>
           </Button>
         </View>
       </View>
@@ -112,18 +110,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userInfoSection: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   imageContainer: {
     paddingTop: 40,
   },
   card: {
-    width: "90%",
+    width: '90%',
     borderRadius: 10,
     padding: 10,
     elevation: 5,
-    backgroundColor: "white",
-    shadowColor: "#000",
+    backgroundColor: 'white',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -131,17 +129,17 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 10,
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
   },
   text: {
-    fontFamily: "Montserrat-Bold",
+    fontFamily: 'Montserrat-Bold',
   },
   buttonContainer: {
     marginTop: 20,
+    width: '90%',
   },
   button: {
-    width: "90%",
-    justifyContent: "center",
+    justifyContent: 'center',
     height: 60,
   },
 });

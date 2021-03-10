@@ -106,10 +106,17 @@ const style = StyleSheet.create({
   inputContainer: {
     paddingVertical: 5,
     paddingHorizontal: 10,
-    width: '80%',
+    width: '90%',
     backgroundColor: '#EEEEEE',
     borderRadius: 10,
-    marginBottom: 45,
+    marginBottom: 25,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
   },
 });
 
