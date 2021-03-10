@@ -2,21 +2,15 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { useTheme, Text, Button } from 'react-native-paper';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import auth from '@react-native-firebase/auth';
 import Verificacion from './Verificacion';
+import { Context } from '../../context/Context';
+import { firebase } from '@react-native-firebase/firestore';
 
-let backgroundColor;
 const Bienvenido = ({ navigation }) => {
   const [confirm, setConfirm] = useState(null);
   const { colors } = useTheme();
-  backgroundColor = colors.accent;
   const [phoneNumber, setPhoneNumber] = useState();
-  // Handle the button press
-  const convertirNumero = (num) => {
-    console.log(`+51 ${num}`);
-    return `+51 ${num}`;
-  };
 
   async function signInWithPhoneNumber(phoneNumber) {
     const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
@@ -27,10 +21,20 @@ const Bienvenido = ({ navigation }) => {
     try {
       await confirm.confirm(code);
       console.log('codigo correcto');
-      navigation.navigate('Registro', {
-        name: 'Registro',
-        phoneNumber: `+51${phoneNumber}`,
-      });
+      console.log(
+        'f',
+        firebase.auth().currentUser.metadata.creationTime ===
+          firebase.auth().currentUser.metadata.lastSignInTime
+      );
+
+      if (
+        firebase.auth().currentUser.metadata.creationTime ===
+        firebase.auth().currentUser.metadata.lastSignInTime
+      )
+        navigation.navigate('Registro', {
+          name: 'Registro',
+          phoneNumber: `+51${phoneNumber}`,
+        });
     } catch (error) {
       console.log('Invalid code.');
     }
@@ -61,7 +65,7 @@ const Bienvenido = ({ navigation }) => {
           style={style.button}
           uppercase={false}
           mode="contained"
-          onPress={() => signInWithPhoneNumber(convertirNumero(phoneNumber))}
+          onPress={() => signInWithPhoneNumber(`+51 ${phoneNumber}`)}
         >
           Siguiente
         </Button>
